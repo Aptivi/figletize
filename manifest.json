@@ -1,0 +1,144 @@
+{
+  "sitemap": {
+    "baseUrl": "https://aptivi.github.io/Figletize/"
+  },
+  "homepages": [],
+  "source_base_path": "/github/workspace/DocGen",
+  "xrefmap": "xrefmap.yml",
+  "files": [
+    {
+      "type": "Resource",
+      "output": {
+        "resource": {
+          "relative_path": "index.json"
+        }
+      }
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Figletize.FigletTools.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Figletize.FigletTools.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Figletize.FigletizeException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Figletize.FigletizeException.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Figletize.FigletizeFontParser.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Figletize.FigletizeFontParser.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Figletize.FigletizeFonts.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Figletize.FigletizeFonts.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Figletize.Utilities.FigletizeFont.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Figletize.Utilities.FigletizeFont.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Figletize.Utilities.FigletizeTextDirection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Figletize.Utilities.FigletizeTextDirection.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Figletize.Utilities.StringPool.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Figletize.Utilities.StringPool.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Figletize.Utilities.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Figletize.Utilities.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Figletize.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Figletize.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "api/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/toc.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "index.md",
+      "output": {
+        ".html": {
+          "relative_path": "index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "toc.html"
+        }
+      },
+      "version": ""
+    }
+  ],
+  "version_info": {},
+  "groups": [
+    {
+      "xrefmap": "xrefmap.yml"
+    }
+  ]
+}
