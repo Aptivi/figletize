@@ -4,6 +4,7 @@
 using Figletize.Utilities;
 using System;
 using System.Collections.Concurrent;
+using System.Linq;
 using System.Reflection;
 
 namespace Figletize;
@@ -298,9 +299,9 @@ public static class FigletizeFonts
 
         static FigletizeFont FontFactory(string name)
         {
-            var font = ParseEmbeddedFont(name);
-            if (font is null)
+            if (!_builtinFonts.Contains(name))
                 throw new FigletizeException("Built-in font not implemented. Try using the FigletizeFontParser class to parse custom Figlet fonts.");
+            var font = ParseEmbeddedFont(name);
             return font;
         }
     }
