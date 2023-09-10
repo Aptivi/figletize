@@ -1,5 +1,7 @@
 ﻿// Copyright Drew Noakes. Licensed under the Apache-2.0 license. See the LICENSE file for more details.
+// Copyright 2023-2024 - Aptivi. Licensed under the Apache-2.0 license. See the LICENSE file for more details.
 
+using Figletize.Utilities;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -38,10 +40,11 @@ public static class FigletizeFontParser
     /// </summary>
     /// <param name="stream">The stream to read from.</param>
     /// <param name="pool">An optional string pool for merging identical string references.</param>
+    /// <param name="name">Figlet font name.</param>
     /// <returns>The font described by the stream.</returns>
     /// <exception cref="ArgumentNullException"><paramref name="stream"/> is <c>null</c>.</exception>
     /// <exception cref="FigletizeException">The stream contained an error and could not be parsed.</exception>
-    public static FigletizeFont Parse(Stream stream, StringPool? pool = null)
+    internal static FigletizeFont Parse(Stream stream, StringPool pool = null, string name = "unknown")
     {
         if (stream == null)
             throw new ArgumentNullException(nameof(stream));
@@ -217,6 +220,6 @@ readLine:
                 sparseCharacters[code] = ReadCharacter();
         }
 
-        return new FigletizeFont(requiredCharacters, sparseCharacters, hardBlank, height, baseline, direction, layoutNew);
+        return new FigletizeFont(requiredCharacters, sparseCharacters, hardBlank, height, baseline, direction, layoutNew, name);
     }
 }

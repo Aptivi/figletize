@@ -1,21 +1,7 @@
 #!/bin/bash
 
-#   Terminaux  Copyright (C) 2023  Aptivi
-# 
-#   This file is part of Terminaux
-# 
-#   Terminaux is free software: you can redistribute it and/or modify
-#   it under the terms of the GNU General Public License as published by
-#   the Free Software Foundation, either version 3 of the License, or
-#   (at your option) any later version.
-# 
-#   Terminaux is distributed in the hope that it will be useful,
-#   but WITHOUT ANY WARRANTY; without even the implied warranty of
-#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#   GNU General Public License for more details.
-# 
-#   You should have received a copy of the GNU General Public License
-#   along with this program.  If not, see <https://www.gnu.org/licenses/>.
+# Copyright Drew Noakes. Licensed under the Apache-2.0 license. See the LICENSE file for more details.
+# Copyright 2023-2024 - Aptivi. Licensed under the Apache-2.0 license. See the LICENSE file for more details.
 
 # This script builds and packs the artifacts. Use when you have MSBuild installed.
 version=$(cat version)
@@ -33,8 +19,8 @@ fi
 
 # Pack binary
 echo Packing binary...
-"$rarpath" a -ep1 -r -m5 /tmp/$version-bin.rar "../Terminaux/bin/$releaseconf/netstandard2.0/"
-"$rarpath" a -ep1 -r -m5 /tmp/$version-demo.rar "../Terminaux.Console/bin/$releaseconf/net6.0/"
+"$rarpath" a -ep1 -r -m5 /tmp/$version-bin.rar "../Figletize/bin/$releaseconf/netstandard2.0/"
+"$rarpath" a -ep1 -r -m5 /tmp/$version-demo.rar "../Figletize.Cmd/bin/$releaseconf/net6.0/"
 if [ ! $? == 0 ]; then
 	echo Packing using rar failed.
 	exit 1

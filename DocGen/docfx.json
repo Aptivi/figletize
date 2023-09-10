@@ -3,7 +3,7 @@
         {
             "src": [
                 {
-                    "files": [ "Terminaux/**.csproj" ],
+                    "files": [ "Figletize/**.csproj" ],
                     "src": ".."
                 }
             ],
@@ -30,7 +30,7 @@
         ],
         "dest": "../docs",
         "globalMetadata": {
-            "_appTitle": "Terminaux API - Aptivi Internals",
+            "_appTitle": "Figletize API - Aptivi Internals",
             "_enableSearch": true
         },
         "globalMetadataFiles": [],
@@ -43,7 +43,7 @@
         "cleanupCacheHistory": false,
         "disableGitFeatures": false,
         "sitemap": {
-            "baseUrl": "https://aptivi.github.io/Terminaux/"
+            "baseUrl": "https://aptivi.github.io/Figletize/"
         }
     }
 }

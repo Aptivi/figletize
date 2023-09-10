@@ -1,21 +1,7 @@
 @echo off
 
-REM    Terminaux  Copyright (C) 2018-2021  Aptivi
-REM
-REM    This file is part of Terminaux
-REM
-REM    Terminaux is free software: you can redistribute it and/or modify
-REM    it under the terms of the GNU General Public License as published by
-REM    the Free Software Foundation, either version 3 of the License, or
-REM    (at your option) any later version.
-REM
-REM    Terminaux is distributed in the hope that it will be useful,
-REM    but WITHOUT ANY WARRANTY; without even the implied warranty of
-REM    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-REM    GNU General Public License for more details.
-REM
-REM    You should have received a copy of the GNU General Public License
-REM    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+REM Copyright Drew Noakes. Licensed under the Apache-2.0 license. See the LICENSE file for more details.
+REM Copyright 2023-2024 - Aptivi. Licensed under the Apache-2.0 license. See the LICENSE file for more details.
 
 REM This script builds and packs the artifacts. Use when you have VS installed.
 set releaseconfig=%1
@@ -23,14 +9,14 @@ if "%releaseconfig%" == "" set releaseconfig=Release
 
 :download
 echo Downloading packages...
-"%ProgramFiles%\dotnet\dotnet.exe" msbuild "..\Terminaux.sln" -t:restore -p:Configuration=%releaseconfig%
+"%ProgramFiles%\dotnet\dotnet.exe" msbuild "..\Figletize.sln" -t:restore -p:Configuration=%releaseconfig%
 if %errorlevel% == 0 goto :build
 echo There was an error trying to download packages (%errorlevel%).
 goto :finished
 
 :build
 echo Building...
-"%ProgramFiles%\dotnet\dotnet.exe" msbuild "..\Terminaux.sln" -p:Configuration=%releaseconfig%
+"%ProgramFiles%\dotnet\dotnet.exe" msbuild "..\Figletize.sln" -p:Configuration=%releaseconfig%
 if %errorlevel% == 0 goto :success
 echo There was an error trying to build (%errorlevel%).
 goto :finished

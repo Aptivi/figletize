@@ -1,5 +1,7 @@
 ﻿// Copyright Drew Noakes. Licensed under the Apache-2.0 license. See the LICENSE file for more details.
+// Copyright 2023-2024 - Aptivi. Licensed under the Apache-2.0 license. See the LICENSE file for more details.
 
+using Figletize.Utilities;
 using System;
 using System.Collections.Generic;
 using System.IO.Compression;
@@ -64,18 +66,18 @@ public class FigletizeFontTest
             @"                    ");
 
         Test(FigletizeFonts.Impossible, "Figletize", null,
-            @"         _        _          _              _              _             _      ",
-            @"        /\ \     /\ \       /\ \           /\ \           _\ \          /\ \    ",
-            @"       /  \ \    \ \ \     /  \ \         /  \ \         /\__ \        /  \ \   ",
-            @"      / /\ \ \   /\ \_\   / /\ \_\       / /\ \_\       / /_ \_\      / /\ \ \  ",
-            @"     / / /\ \_\ / /\/_/  / / /\/_/      / / /\/_/      / / /\/_/     / / /\ \_\ ",
-            @"    / /_/_ \/_// / /    / / / ______   / / / ______   / / /         / /_/_ \/_/ ",
-            @"   / /____/\  / / /    / / / /\_____\ / / / /\_____\ / / /         / /____/\    ",
-            @"  / /\____\/ / / /    / / /  \/____ // / /  \/____ // / / ____    / /\____\/    ",
-            @" / / /   ___/ / /__  / / /_____/ / // / /_____/ / // /_/_/ ___/\ / / /______    ",
-            @"/ / /   /\__\/_/___\/ / /______\/ // / /______\/ //_______/\__\// / /_______\   ",
-            @"\/_/    \/_________/\/___________/ \/___________/ \_______\/    \/__________/   ",
-            @"                                                                                ");
+            @"         _        _          _              _             _          _          _           _                 _      ",
+            @"        /\ \     /\ \       /\ \           _\ \          /\ \       /\ \       /\ \       /\ \               /\ \    ",
+            @"       /  \ \    \ \ \     /  \ \         /\__ \        /  \ \      \_\ \      \ \ \     /  \ \             /  \ \   ",
+            @"      / /\ \ \   /\ \_\   / /\ \_\       / /_ \_\      / /\ \ \     /\__ \     /\ \_\ __/ /\ \ \           / /\ \ \  ",
+            @"     / / /\ \_\ / /\/_/  / / /\/_/      / / /\/_/     / / /\ \_\   / /_ \ \   / /\/_//___/ /\ \ \         / / /\ \_\ ",
+            @"    / /_/_ \/_// / /    / / / ______   / / /         / /_/_ \/_/  / / /\ \ \ / / /   \___\/ / / /        / /_/_ \/_/ ",
+            @"   / /____/\  / / /    / / / /\_____\ / / /         / /____/\    / / /  \/_// / /          / / /        / /____/\    ",
+            @"  / /\____\/ / / /    / / /  \/____ // / / ____    / /\____\/   / / /      / / /          / / /    _   / /\____\/    ",
+            @" / / /   ___/ / /__  / / /_____/ / // /_/_/ ___/\ / / /______  / / /   ___/ / /__         \ \ \__/\_\ / / /______    ",
+            @"/ / /   /\__\/_/___\/ / /______\/ //_______/\__\// / /_______\/_/ /   /\__\/_/___\         \ \___\/ // / /_______\   ",
+            @"\/_/    \/_________/\/___________/ \_______\/    \/__________/\_\/    \/_________/          \/___/_/ \/__________/   ",
+            @"                                                                                                                     ");
 
         Test(FigletizeFonts.Graffiti, "Hello, World!", null,
             @"  ___ ___         .__  .__               __      __            .__       .___._.",
@@ -99,7 +101,7 @@ public class FigletizeFontTest
                 {
                     _output.WriteLine("Expected:\n" + string.Join(Environment.NewLine, expected));
                     _output.WriteLine("Actual:\n" + output);
-                    Assert.True(false, $"Mismatched lengths row {i}. Expecting '{expected[i].Length}' but got '{actual[i].Length}'.");
+                    Assert.Fail($"Mismatched lengths row {i}. Expecting '{expected[i].Length}' but got '{actual[i].Length}'.");
                 }
 
                 for (var x = 0; x < expected[i].Length; x++)
@@ -108,38 +110,10 @@ public class FigletizeFontTest
                     {
                         _output.WriteLine("Expected:\n" + string.Join(Environment.NewLine, expected));
                         _output.WriteLine("Actual:\n" + output);
-                        Assert.True(false, $"Mismatch at row {i} col {x}. Expecting '{expected[i][x]}' but got '{actual[i][x]}'.");
+                        Assert.Fail($"Mismatch at row {i} col {x}. Expecting '{expected[i][x]}' but got '{actual[i][x]}'.");
                     }
                 }
             }
-        }
-    }
-
-    [Theory]
-    [MemberData(nameof(EnumerateAllFonts))]
-    public void RenderStressTest(string name, FigletizeFont font)
-    {
-        _ = name; // suppress warning about unused parameter -- it's useful when debugging test failures
-
-        _ = font.Render("Hello, World!");
-    }
-
-    public static IEnumerable<object[]> EnumerateAllFonts()
-    {
-        using var stream = typeof(FigletizeFonts).GetTypeInfo().Assembly.GetManifestResourceStream("Figletize.Fonts.zip");
-
-        if (stream is null)
-            throw new FigletizeException("Unable to open embedded font archive.");
-
-        using var zip = new ZipArchive(stream, ZipArchiveMode.Read);
-
-        StringPool stringPool = new();
-
-        foreach (var entry in zip.Entries)
-        {
-            using var entryStream = entry.Open();
-
-            yield return new object[] { entry.Name, FigletizeFontParser.Parse(entryStream, stringPool) };
         }
     }
 }

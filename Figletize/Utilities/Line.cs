@@ -1,4 +1,5 @@
 ﻿// Copyright Drew Noakes. Licensed under the Apache-2.0 license. See the LICENSE file for more details.
+// Copyright 2023-2024 - Aptivi. Licensed under the Apache-2.0 license. See the LICENSE file for more details.
 
 using System;
 using System.Collections.Generic;
@@ -6,12 +7,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 
-// TODO support right to left fonts
-// TODO include comments/sample output in XML docs of FigletizeFonts
-// TODO have a utility that produces example output for each font in a markdown document
-// TODO have a means of enumerating all fonts in FigletizeFonts
-
-namespace Figletize;
+namespace Figletize.Utilities;
 
 internal readonly struct Line
 {
@@ -20,7 +16,7 @@ internal readonly struct Line
     public byte SpaceAfter { get; }
 
     public char FrontChar => Content.Length == SpaceBefore ? ' ' : Content[SpaceBefore];
-    public char BackChar  => Content.Length == SpaceAfter  ? ' ' : Content[Content.Length - SpaceAfter - 1];
+    public char BackChar => Content.Length == SpaceAfter ? ' ' : Content[Content.Length - SpaceAfter - 1];
 
     public Line(string content, byte spaceBefore, byte spaceAfter)
     {
@@ -55,14 +51,14 @@ public sealed class FigletizeFont
     private readonly char _hardBlank;
     private readonly int _smushMode;
 
-    private const int SM_SMUSH     = 0b10000000;
-    private const int SM_KERN      = 0b01000000;
+    private const int SM_SMUSH = 0b10000000;
+    private const int SM_KERN = 0b01000000;
     private const int SM_HARDBLANK = 0b00100000;
-    private const int SM_BIGX      = 0b00010000;
-    private const int SM_PAIR      = 0b00001000;
+    private const int SM_BIGX = 0b00010000;
+    private const int SM_PAIR = 0b00001000;
     private const int SM_HIERARCHY = 0b00000100;
-    private const int SM_LOWLINE   = 0b00000010;
-    private const int SM_EQUAL     = 0b00000001;
+    private const int SM_LOWLINE = 0b00000010;
+    private const int SM_EQUAL = 0b00000001;
     private const int SM_FULLWIDTH = 0;
 
     /// <summary>The height of each character, in rows.</summary>
@@ -75,7 +71,12 @@ public sealed class FigletizeFont
     /// <summary>The direction that text reads when rendered with this font.</summary>
     public FigletizeTextDirection Direction { get; }
 
-    internal FigletizeFont(IReadOnlyList<FigletizeCharacter> requiredCharacters, IReadOnlyDictionary<int, FigletizeCharacter> sparseCharacters, char hardBlank, int height, int baseline, FigletizeTextDirection direction, int smushMode)
+    /// <summary>
+    /// The name of the Figlet font
+    /// </summary>
+    public string Name { get; }
+
+    internal FigletizeFont(IReadOnlyList<FigletizeCharacter> requiredCharacters, IReadOnlyDictionary<int, FigletizeCharacter> sparseCharacters, char hardBlank, int height, int baseline, FigletizeTextDirection direction, int smushMode, string name)
     {
         _requiredCharacters = requiredCharacters;
         _sparseCharacters = sparseCharacters;
@@ -84,6 +85,7 @@ public sealed class FigletizeFont
         Height = height;
         Baseline = baseline;
         Direction = direction;
+        Name = name;
     }
 
     private FigletizeCharacter GetCharacter(char c)
@@ -123,7 +125,7 @@ public sealed class FigletizeFont
 
         var outputLines = Enumerable.Range(0, Height).Select(_ => new StringBuilder()).ToList();
 
-        FigletizeCharacter? lastCh = null;
+        FigletizeCharacter lastCh = null;
 
         foreach (var c in message)
         {
@@ -189,7 +191,7 @@ public sealed class FigletizeFont
 
         return res.ToString();
 
-        int CalculateFitMove(FigletizeCharacter? l, FigletizeCharacter r)
+        int CalculateFitMove(FigletizeCharacter l, FigletizeCharacter r)
         {
             if (smush == SM_FULLWIDTH)
                 return 0;
@@ -259,16 +261,16 @@ public sealed class FigletizeFont
 
             if ((_smushMode & SM_HIERARCHY) != 0)
             {
-                if (l == '|'          && @"/\[]{}()<>".Contains(r)) return r;
-                if (r == '|'          && @"/\[]{}()<>".Contains(l)) return l;
-                if ("/\\".Contains(l) &&    "[]{}()<>".Contains(r)) return r;
-                if ("/\\".Contains(r) &&    "[]{}()<>".Contains(l)) return l;
-                if ("[]" .Contains(l) &&      "{}()<>".Contains(r)) return r;
-                if ("[]" .Contains(r) &&      "{}()<>".Contains(l)) return l;
-                if ("{}" .Contains(l) &&        "()<>".Contains(r)) return r;
-                if ("{}" .Contains(r) &&        "()<>".Contains(l)) return l;
-                if ("()" .Contains(l) &&          "<>".Contains(r)) return r;
-                if ("()" .Contains(r) &&          "<>".Contains(l)) return l;
+                if (l == '|' && @"/\[]{}()<>".Contains(r)) return r;
+                if (r == '|' && @"/\[]{}()<>".Contains(l)) return l;
+                if ("/\\".Contains(l) && "[]{}()<>".Contains(r)) return r;
+                if ("/\\".Contains(r) && "[]{}()<>".Contains(l)) return l;
+                if ("[]".Contains(l) && "{}()<>".Contains(r)) return r;
+                if ("[]".Contains(r) && "{}()<>".Contains(l)) return l;
+                if ("{}".Contains(l) && "()<>".Contains(r)) return r;
+                if ("{}".Contains(r) && "()<>".Contains(l)) return l;
+                if ("()".Contains(l) && "<>".Contains(r)) return r;
+                if ("()".Contains(r) && "<>".Contains(l)) return l;
             }
 
             if ((_smushMode & SM_PAIR) != 0)
@@ -285,7 +287,7 @@ public sealed class FigletizeFont
             {
                 if (l == '/' && r == '\\') return '|';
                 if (r == '/' && l == '\\') return 'Y';
-                if (l == '>' && r == '<')  return 'X';
+                if (l == '>' && r == '<') return 'X';
             }
 
             return '\0';

@@ -1,8 +1,9 @@
 ﻿// Copyright Drew Noakes. Licensed under the Apache-2.0 license. See the LICENSE file for more details.
+// Copyright 2023-2024 - Aptivi. Licensed under the Apache-2.0 license. See the LICENSE file for more details.
 
+using Figletize.Utilities;
 using System;
 using System.Collections.Concurrent;
-using System.IO.Compression;
 using System.Reflection;
 
 namespace Figletize;
@@ -12,8 +13,6 @@ namespace Figletize;
 /// </summary>
 /// <remarks>
 /// Fonts are lazily loaded upon property access. Only the fonts you use will be loaded.
-/// <para />
-/// Fonts are stored as an embedded ZIP archive within the assembly.
 /// </remarks>
 public static class FigletizeFonts
 {
@@ -295,10 +294,6 @@ public static class FigletizeFonts
         static FigletizeFont FontFactory(string name)
         {
             var font = ParseEmbeddedFont(name);
-
-            if (font is null)
-                throw new FigletizeException($"No embedded font exists with name \"{name}\".");
-
             return font;
         }
     }
@@ -308,35 +303,26 @@ public static class FigletizeFonts
     /// </summary>
     /// <param name="name">the name of the font. Case-sensitive.</param>
     /// <returns>The font if found, otherwise <see langword="null"/>.</returns>
-    public static FigletizeFont? TryGetByName(string name)
+    public static FigletizeFont TryGetByName(string name)
     {
+        // Check to see if we have the cached version
         if (_fontByName.TryGetValue(name, out var font))
             return font;
 
+        // Try to parse the font, and then add it if found
         font = ParseEmbeddedFont(name);
-
         if (font is not null)
             _fontByName.TryAdd(name, font);
 
+        // Return the parsed font.
         return font;
     }
 
-    private static FigletizeFont? ParseEmbeddedFont(string name)
+    private static FigletizeFont ParseEmbeddedFont(string name)
     {
-        using var stream = typeof(FigletizeFonts).GetTypeInfo().Assembly.GetManifestResourceStream("Figletize.Fonts.zip");
-
+        using var stream = typeof(FigletizeFonts).GetTypeInfo().Assembly.GetManifestResourceStream($"Figletize.Fonts.{name}.flf");
         if (stream is null)
-            throw new FigletizeException("Unable to open embedded font archive.");
-
-        using var zip = new ZipArchive(stream, ZipArchiveMode.Read);
-
-        var entry = zip.GetEntry(name + ".flf");
-
-        if (entry == null)
             return null;
-
-        using var entryStream = entry.Open();
-
-        return FigletizeFontParser.Parse(entryStream, _stringPool);
+        return FigletizeFontParser.Parse(stream, _stringPool, name);
     }
 }

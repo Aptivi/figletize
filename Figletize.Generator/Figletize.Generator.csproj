@@ -16,6 +16,8 @@
     <IsPackable>true</IsPackable>
     <NoWarn>$(NoWarn);NU5128</NoWarn>
     <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
+    <SignAssembly>True</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\aptivi_snk.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -29,9 +31,6 @@
 
   <ItemGroup>
     <None Remove="bin\Debug\netstandard2.0\\Figletize.dll" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="$(OutputPath)\Figletize.dll" Pack="true" PackagePath="analyzers\dotnet\cs" />
     <None Remove="bin\Debug\netstandard2.0\\Figletize.pdb" />
     <None Include="$(OutputPath)\Figletize.pdb" Pack="true" PackagePath="analyzers\dotnet\cs" />

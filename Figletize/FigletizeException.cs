@@ -1,4 +1,5 @@
 // Copyright Drew Noakes. Licensed under the Apache-2.0 license. See the LICENSE file for more details.
+// Copyright 2023-2024 - Aptivi. Licensed under the Apache-2.0 license. See the LICENSE file for more details.
 
 using System;
 
@@ -14,6 +15,5 @@ public sealed class FigletizeException : Exception
     /// </summary>
     /// <param name="message">A message explaining the exception.</param>
     public FigletizeException(string message) : base(message)
-    {
-    }
+    { }
 }
