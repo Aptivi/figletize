@@ -15,7 +15,7 @@ while (true)
 
     try
     {
-        Console.WriteLine(FigletizeFonts.Standard.Render(message));
+        Console.WriteLine(FigletizeFonts.TryGetByName("standard").Render(message));
     }
     catch (Exception e)
     {

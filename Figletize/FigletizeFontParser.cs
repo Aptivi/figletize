@@ -44,7 +44,7 @@ public static class FigletizeFontParser
     /// <returns>The font described by the stream.</returns>
     /// <exception cref="ArgumentNullException"><paramref name="stream"/> is <c>null</c>.</exception>
     /// <exception cref="FigletizeException">The stream contained an error and could not be parsed.</exception>
-    internal static FigletizeFont Parse(Stream stream, StringPool pool = null, string name = "unknown")
+    public static FigletizeFont Parse(Stream stream, StringPool pool = null, string name = "unknown")
     {
         if (stream == null)
             throw new ArgumentNullException(nameof(stream));

@@ -20,7 +20,7 @@ public class FigletizeFontTest
     [Fact]
     public void Render()
     {
-        Test(FigletizeFonts.Standard, "Hello, World!", null,
+        Test(FigletizeFonts.TryGetByName("standard"), "Hello, World!", null,
             @"  _   _      _ _         __        __         _     _ _ ",
             @" | | | | ___| | | ___    \ \      / /__  _ __| | __| | |",
             @" | |_| |/ _ \ | |/ _ \    \ \ /\ / / _ \| '__| |/ _` | |",
@@ -28,12 +28,12 @@ public class FigletizeFontTest
             @" |_| |_|\___|_|_|\___( )    \_/\_/ \___/|_|  |_|\__,_(_)",
             @"                     |/                                 ");
 
-        Test(FigletizeFonts.ThreePoint, "Hello, World!", null,
+        Test(FigletizeFonts.TryGetByName("threepoint"), "Hello, World!", null,
             @"|_| _ || _    \    / _  _| _||",
             @"| |(/_||(_),   \/\/ (_)| |(_|.",
             @"                              ");
 
-        Test(FigletizeFonts.Ogre, "Hello, World!", null,
+        Test(FigletizeFonts.TryGetByName("ogre"), "Hello, World!", null,
             @"            _ _          __    __           _     _   _ ",
             @"  /\  /\___| | | ___    / / /\ \ \___  _ __| | __| | / \",
             @" / /_/ / _ \ | |/ _ \   \ \/  \/ / _ \| '__| |/ _` |/  /",
@@ -41,7 +41,7 @@ public class FigletizeFontTest
             @"\/ /_/ \___|_|_|\___( )   \/  \/ \___/|_|  |_|\__,_\/   ",
             @"                    |/                                  ");
 
-        Test(FigletizeFonts.Rectangles, "Hello, World!", null,
+        Test(FigletizeFonts.TryGetByName("rectangles"), "Hello, World!", null,
             @"                                            __ ",
             @" _____     _ _          _ _ _         _   _|  |",
             @"|  |  |___| | |___     | | | |___ ___| |_| |  |",
@@ -49,7 +49,7 @@ public class FigletizeFontTest
             @"|__|__|___|_|_|___| |  |_____|___|_| |_|___|__|",
             @"                  |_|                          ");
 
-        Test(FigletizeFonts.Slant, "Hello, World!", null,
+        Test(FigletizeFonts.TryGetByName("slant"), "Hello, World!", null,
             @"    __  __     ____           _       __           __    ____",
             @"   / / / /__  / / /___       | |     / /___  _____/ /___/ / /",
             @"  / /_/ / _ \/ / / __ \      | | /| / / __ \/ ___/ / __  / / ",
@@ -57,7 +57,7 @@ public class FigletizeFontTest
             @"/_/ /_/\___/_/_/\____( )     |__/|__/\____/_/  /_/\__,_(_)   ",
             @"                     |/                                      ");
 
-        Test(FigletizeFonts.Slant, "H.W", null,
+        Test(FigletizeFonts.TryGetByName("slant"), "H.W", null,
             @"    __  ___       __",
             @"   / / / / |     / /",
             @"  / /_/ /| | /| / / ",
@@ -65,7 +65,7 @@ public class FigletizeFontTest
             @"/_/ /_/(_)__/|__/   ",
             @"                    ");
 
-        Test(FigletizeFonts.Impossible, "Figletize", null,
+        Test(FigletizeFonts.TryGetByName("impossible"), "Figletize", null,
             @"         _        _          _              _             _          _          _           _                 _      ",
             @"        /\ \     /\ \       /\ \           _\ \          /\ \       /\ \       /\ \       /\ \               /\ \    ",
             @"       /  \ \    \ \ \     /  \ \         /\__ \        /  \ \      \_\ \      \ \ \     /  \ \             /  \ \   ",
@@ -79,7 +79,7 @@ public class FigletizeFontTest
             @"\/_/    \/_________/\/___________/ \_______\/    \/__________/\_\/    \/_________/          \/___/_/ \/__________/   ",
             @"                                                                                                                     ");
 
-        Test(FigletizeFonts.Graffiti, "Hello, World!", null,
+        Test(FigletizeFonts.TryGetByName("graffiti"), "Hello, World!", null,
             @"  ___ ___         .__  .__               __      __            .__       .___._.",
             @" /   |   \   ____ |  | |  |   ____      /  \    /  \___________|  |    __| _/| |",
             @"/    ~    \_/ __ \|  | |  |  /  _ \     \   \/\/   /  _ \_  __ \  |   / __ | | |",

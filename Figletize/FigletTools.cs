@@ -81,7 +81,7 @@ namespace Figletize
             }
             else
             {
-                return FigletizeFonts.Small;
+                return (FigletizeFont)FigletFonts["Small"];
             }
         }
 
