@@ -97,6 +97,91 @@
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static class FigletizeFontParser</code></pre>
   </div>
+  <h3 id="methods">Methods
+</h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Aptivi/figletize/new/main/apiSpec/new?filename=Figletize_FigletizeFontParser_Parse_System_IO_Stream_Figletize_Utilities_StringPool_System_String_.md&amp;value=---%0Auid%3A%20Figletize.FigletizeFontParser.Parse(System.IO.Stream%2CFigletize.Utilities.StringPool%2CSystem.String)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aptivi/figletize/blob/main/Figletize/FigletizeFontParser.cs/#L47">View Source</a>
+  </span>
+  <a id="Figletize_FigletizeFontParser_Parse_" data-uid="Figletize.FigletizeFontParser.Parse*"></a>
+  <h4 id="Figletize_FigletizeFontParser_Parse_System_IO_Stream_Figletize_Utilities_StringPool_System_String_" data-uid="Figletize.FigletizeFontParser.Parse(System.IO.Stream,Figletize.Utilities.StringPool,System.String)">Parse(Stream, StringPool, string)</h4>
+  <div class="markdown level1 summary"><p>Parses a FIGlet font description stream, and returns a usable <a class="xref" href="Figletize.Utilities.FigletizeFont.html">FigletizeFont</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static FigletizeFont Parse(Stream stream, StringPool pool = null, string name = &quot;unknown&quot;)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.stream">Stream</a></td>
+        <td><span class="parametername">stream</span></td>
+        <td><p>The stream to read from.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Figletize.Utilities.StringPool.html">StringPool</a></td>
+        <td><span class="parametername">pool</span></td>
+        <td><p>An optional string pool for merging identical string references.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">name</span></td>
+        <td><p>Figlet font name.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Figletize.Utilities.FigletizeFont.html">FigletizeFont</a></td>
+        <td><p>The font described by the stream.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></td>
+        <td><p><code class="paramref">stream</code> is <code>null</code>.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Figletize.FigletizeException.html">FigletizeException</a></td>
+        <td><p>The stream contained an error and could not be parsed.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
 
 </article>
           </div>
