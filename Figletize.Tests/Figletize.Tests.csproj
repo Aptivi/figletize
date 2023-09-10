@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.7.2" />
+    <PackageReference Include="xunit" Version="2.5.0" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.5.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Figletize\Figletize.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\Figletize\ParseUtil.cs" Link="Source\ParseUtil.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Update="Roslyn.Diagnostics.Analyzers" Version="3.3.4" />
+  </ItemGroup>
+</Project>
