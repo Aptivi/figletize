@@ -4,21 +4,42 @@
 using System;
 using Figletize;
 
-while (true)
+internal class Program
 {
-    Console.Write("Message: ");
-
-    var message = Console.ReadLine();
-
-    if (message is null)
-        break;
-
-    try
+    private static int Main(string[] args)
     {
-        Console.WriteLine(FigletizeFonts.TryGetByName("standard").Render(message));
-    }
-    catch (Exception e)
-    {
-        Console.Error.WriteLine($"Exception: {e}");
+        // Parse the font from args
+        string fontName = "standard";
+        if (args.Length > 0)
+            fontName = args[0].Trim();
+
+        // Check the font
+        var fontInstance = FigletizeFonts.TryGetByName(fontName);
+        if (fontInstance is null)
+        {
+            Console.Error.WriteLine($"Font {fontName} not found. Exiting...");
+            return 1;
+        }
+
+        // Main loop
+        while (true)
+        {
+            Console.WriteLine("Press ENTER in its own line to exit.");
+            Console.Write("Write your message: ");
+
+            var message = Console.ReadLine();
+            if (string.IsNullOrEmpty(message))
+                break;
+
+            try
+            {
+                Console.WriteLine(fontInstance.Render(message));
+            }
+            catch (Exception e)
+            {
+                Console.Error.WriteLine($"Exception: {e}");
+            }
+        }
+        return 0;
     }
 }
