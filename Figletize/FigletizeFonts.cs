@@ -19,7 +19,7 @@ public static class FigletizeFonts
 {
     private static readonly ConcurrentDictionary<string, FigletizeFont> _fontByName = new(StringComparer.Ordinal);
     private static readonly StringPool _stringPool = new();
-    private static readonly string[] _builtinFonts = new[]
+    internal static readonly string[] _builtinFonts = new[]
     {
         "1row",
         "3-d",

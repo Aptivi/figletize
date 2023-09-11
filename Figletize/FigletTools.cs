@@ -4,8 +4,6 @@
 using Figletize.Utilities;
 using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
-using System.Reflection;
 
 namespace Figletize
 {
@@ -15,12 +13,7 @@ namespace Figletize
     public static class FigletTools
     {
         private readonly static Dictionary<string, string> cachedFiglets = new();
-        private static readonly Dictionary<string, Func<object>> cachedGetters = new();
-
-        /// <summary>
-        /// The figlet fonts dictionary. It lists all the Figlet fonts supported by the Figgle library.
-        /// </summary>
-        public readonly static Dictionary<string, object> FigletFonts = GetProperties(typeof(FigletizeFonts));
+        private readonly static Dictionary<string, FigletizeFont> cachedFigletFonts = new();
 
         /// <summary>
         /// Gets the figlet lines
@@ -69,53 +62,51 @@ namespace Figletize
             GetFigletLines(Text, FigletFont)[0].Length;
 
         /// <summary>
-        /// Gets the figlet font from font name
+        /// Gets the figlet fonts
         /// </summary>
-        /// <param name="FontName">Font name. Consult <see cref="FigletFonts"/> for more info.</param>
-        /// <returns>Figlet font instance of your font, or Small if not found</returns>
-        public static FigletizeFont GetFigletFont(string FontName)
+        /// <returns>List of supported Figlet fonts</returns>
+        public static Dictionary<string, FigletizeFont> GetFigletFonts()
         {
-            if (FigletFonts.ContainsKey(FontName))
+            Dictionary<string, FigletizeFont> fonts = new();
+            if (cachedFigletFonts.Count > 0)
             {
-                return (FigletizeFont)FigletFonts[FontName];
+                // Fetch the cached version
+                fonts = new(cachedFigletFonts);
+                return fonts;
             }
-            else
+
+            // Now, populate through all the built-in fonts
+            foreach (string fontName in FigletizeFonts._builtinFonts)
             {
-                return (FigletizeFont)FigletFonts["Small"];
+                var font = FigletizeFonts.TryGetByName(fontName);
+                if (font is not null)
+                {
+                    fonts.Add(fontName, font);
+                    cachedFigletFonts.Add(fontName, font);
+                }
             }
+            return fonts;
         }
 
         /// <summary>
-        /// Gets the figlet font name from font
+        /// Gets the figlet font from font name
         /// </summary>
-        /// <param name="Font">Font instance. Consult <see cref="FigletFonts"/> for more info.</param>
-        /// <returns>Figlet font name of your font, or an empty string if not found</returns>
-        public static string GetFigletFontName(FigletizeFont Font)
+        /// <param name="FontName">Font name. Consult <see cref="GetFigletFonts()"/> for more info.</param>
+        /// <returns>Figlet font instance of your font, or Small if not found</returns>
+        public static FigletizeFont GetFigletFont(string FontName)
         {
-            // We need to use the FigletFonts variable and scour through it to look for this specific copy.
-            string figletFontName = "";
-            foreach (string FigletFontToCompare in FigletFonts.Keys)
-            {
-                if (GetFigletFont(FigletFontToCompare) == Font)
-                {
-                    figletFontName = FigletFontToCompare;
-                    break;
-                }
-            }
-
-            // If we don't have the font in the supported fonts dictionary, return an empty string
-            if (FigletizeFonts.TryGetByName(figletFontName) is null)
-                return "";
-
-            // Otherwise, return the name
-            return figletFontName;
+            var figletFonts = GetFigletFonts();
+            if (figletFonts.ContainsKey(FontName))
+                return figletFonts[FontName];
+            else
+                return figletFonts["Small"];
         }
 
         /// <summary>
         /// Renders the figlet font
         /// </summary>
         /// <param name="Text">Text to render</param>
-        /// <param name="figletFontName">Figlet font name to render. Consult <see cref="FigletFonts"/> for more info.</param>
+        /// <param name="figletFontName">Figlet font name to render. Consult <see cref="GetFigletFonts()"/> for more info.</param>
         /// <param name="Vars">Variables to use when formatting the string</param>
         public static string RenderFiglet(string Text, string figletFontName, params object[] Vars)
         {
@@ -127,12 +118,12 @@ namespace Figletize
         /// Renders the figlet font
         /// </summary>
         /// <param name="Text">Text to render</param>
-        /// <param name="FigletFont">Figlet font instance to render. Consult <see cref="FigletFonts"/> for more info.</param>
+        /// <param name="FigletFont">Figlet font instance to render. Consult <see cref="GetFigletFonts()"/> for more info.</param>
         /// <param name="Vars">Variables to use when formatting the string</param>
         public static string RenderFiglet(string Text, FigletizeFont FigletFont, params object[] Vars)
         {
-            // Look at the Remarks section of GetFigletFontName to see why we're doing this.
-            string figletFontName = GetFigletFontName(FigletFont);
+            // Get the figlet font name.
+            string figletFontName = FigletFont.Name;
             if (string.IsNullOrEmpty(figletFontName))
                 return "";
 
@@ -154,44 +145,8 @@ namespace Figletize
             }
         }
 
-        internal static Dictionary<string, object> GetProperties(Type VariableType)
-        {
-            // Get field for specified variable
-            var Properties = VariableType.GetProperties();
-            var PropertyDict = new Dictionary<string, object>();
-
-            // Get the properties and get their values
-            foreach (PropertyInfo VarProperty in Properties)
-            {
-                var PropertyValue = ExpressionGetPropertyValue(VarProperty);
-                PropertyDict.Add(VarProperty.Name, PropertyValue);
-            }
-            return PropertyDict;
-        }
-
         internal static string[] SplitNewLines(this string target) =>
             target.Replace(Convert.ToChar(13).ToString(), "")
                .Split(Convert.ToChar(10));
-
-        private static object ExpressionGetPropertyValue(PropertyInfo propertyInfo)
-        {
-            if (propertyInfo is null)
-                throw new ArgumentNullException(nameof(propertyInfo));
-
-            string cachedName = $"{propertyInfo.DeclaringType.FullName} - {propertyInfo.Name}";
-            if (cachedGetters.ContainsKey(cachedName))
-            {
-                var cachedExpression = cachedGetters[cachedName];
-                return cachedExpression();
-            }
-
-            var callExpr = Expression.Call(propertyInfo.GetGetMethod());
-            var convExpr = Expression.Convert(callExpr, typeof(object));
-
-            var expression = Expression.Lambda<Func<object>>(convExpr).Compile();
-
-            cachedGetters.Add(cachedName, expression);
-            return expression();
-        }
     }
 }
