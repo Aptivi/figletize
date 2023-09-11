@@ -13,12 +13,6 @@ references:
   commentId: T:Figletize.FigletTools
   fullName: Figletize.FigletTools
   nameWithType: FigletTools
-- uid: Figletize.FigletTools.FigletFonts
-  name: FigletFonts
-  href: api/Figletize.FigletTools.html#Figletize_FigletTools_FigletFonts
-  commentId: F:Figletize.FigletTools.FigletFonts
-  fullName: Figletize.FigletTools.FigletFonts
-  nameWithType: FigletTools.FigletFonts
 - uid: Figletize.FigletTools.GetFigletFont(System.String)
   name: GetFigletFont(string)
   href: api/Figletize.FigletTools.html#Figletize_FigletTools_GetFigletFont_System_String_
@@ -35,19 +29,19 @@ references:
   isSpec: "True"
   fullName: Figletize.FigletTools.GetFigletFont
   nameWithType: FigletTools.GetFigletFont
-- uid: Figletize.FigletTools.GetFigletFontName(Figletize.Utilities.FigletizeFont)
-  name: GetFigletFontName(FigletizeFont)
-  href: api/Figletize.FigletTools.html#Figletize_FigletTools_GetFigletFontName_Figletize_Utilities_FigletizeFont_
-  commentId: M:Figletize.FigletTools.GetFigletFontName(Figletize.Utilities.FigletizeFont)
-  fullName: Figletize.FigletTools.GetFigletFontName(Figletize.Utilities.FigletizeFont)
-  nameWithType: FigletTools.GetFigletFontName(FigletizeFont)
-- uid: Figletize.FigletTools.GetFigletFontName*
-  name: GetFigletFontName
-  href: api/Figletize.FigletTools.html#Figletize_FigletTools_GetFigletFontName_
-  commentId: Overload:Figletize.FigletTools.GetFigletFontName
+- uid: Figletize.FigletTools.GetFigletFonts
+  name: GetFigletFonts()
+  href: api/Figletize.FigletTools.html#Figletize_FigletTools_GetFigletFonts
+  commentId: M:Figletize.FigletTools.GetFigletFonts
+  fullName: Figletize.FigletTools.GetFigletFonts()
+  nameWithType: FigletTools.GetFigletFonts()
+- uid: Figletize.FigletTools.GetFigletFonts*
+  name: GetFigletFonts
+  href: api/Figletize.FigletTools.html#Figletize_FigletTools_GetFigletFonts_
+  commentId: Overload:Figletize.FigletTools.GetFigletFonts
   isSpec: "True"
-  fullName: Figletize.FigletTools.GetFigletFontName
-  nameWithType: FigletTools.GetFigletFontName
+  fullName: Figletize.FigletTools.GetFigletFonts
+  nameWithType: FigletTools.GetFigletFonts
 - uid: Figletize.FigletTools.GetFigletHeight(System.String,Figletize.Utilities.FigletizeFont)
   name: GetFigletHeight(string, FigletizeFont)
   href: api/Figletize.FigletTools.html#Figletize_FigletTools_GetFigletHeight_System_String_Figletize_Utilities_FigletizeFont_
