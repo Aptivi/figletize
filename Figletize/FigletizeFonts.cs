@@ -331,6 +331,6 @@ public static class FigletizeFonts
         using var stream = typeof(FigletizeFonts).GetTypeInfo().Assembly.GetManifestResourceStream($"Figletize.Fonts.{name}.flf");
         if (stream is null)
             return null;
-        return FigletizeFontParser.Parse(stream, _stringPool, name);
+        return FigletizeFontParser.Parse(stream, name, _stringPool);
     }
 }

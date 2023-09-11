@@ -5,11 +5,10 @@ using Figletize.Utilities;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace Figletize;
-
-// TODO add static IReadOnlyList<string> ExtractComments(Stream stream)
 
 /// <summary>
 /// Parses FIGlet font files.
@@ -22,52 +21,40 @@ public static class FigletizeFontParser
 
     private static readonly Regex _firstLinePattern = new(
         @"^flf2                         # signature
-              a                             # always 'a'
-              (?<hardblank>.)               # any single character
-              \s(?<height>\d+)              # the number of rows, shared across all characters
-              \s(?<baseline>\d+)            # the number of rows from the top of the char to the baseline (excludes descenders)
-              \s(\d+)                       # the maximum width of character data in the file, including endmarks
-              \s(?<layoutold>-?\d+)         # layout settings (old format)
-              \s(?<commentlinecount>\d+)    # number of comment lines after first line, before first character
-              (\s(?<direction>\d+))?        # print direction (0 is left-to-right, 1 is right-to-left)
-              (\s(?<layoutnew>\d+))?        # layout settings (new format)
-              (\s(\d+))?                    # number of code-tagged (non-required) characters in the font, equal to total number of characters minus 102
-              (\s|$)",
+          a                             # always 'a'
+          (?<hardblank>.)               # any single character
+          \s(?<height>\d+)              # the number of rows, shared across all characters
+          \s(?<baseline>\d+)            # the number of rows from the top of the char to the baseline (excludes descenders)
+          \s(\d+)                       # the maximum width of character data in the file, including endmarks
+          \s(?<layoutold>-?\d+)         # layout settings (old format)
+          \s(?<commentlinecount>\d+)    # number of comment lines after first line, before first character
+          (\s(?<direction>\d+))?        # print direction (0 is left-to-right, 1 is right-to-left)
+          (\s(?<layoutnew>\d+))?        # layout settings (new format)
+          (\s(\d+))?                    # number of code-tagged (non-required) characters in the font, equal to total number of characters minus 102
+          (\s|$)",
         RegexOptions.IgnorePatternWhitespace | RegexOptions.Compiled);
 
     /// <summary>
     /// Parses a FIGlet font description stream, and returns a usable <see cref="FigletizeFont"/>.
     /// </summary>
     /// <param name="stream">The stream to read from.</param>
-    /// <param name="pool">An optional string pool for merging identical string references.</param>
+    /// <param name="pool">An optional string pool for merging identical string references. If null, creates a new pool</param>
     /// <param name="name">Figlet font name.</param>
+    /// <param name="encoding">Encoding to use while parsing font file</param>
     /// <returns>The font described by the stream.</returns>
     /// <exception cref="ArgumentNullException"><paramref name="stream"/> is <c>null</c>.</exception>
     /// <exception cref="FigletizeException">The stream contained an error and could not be parsed.</exception>
-    public static FigletizeFont Parse(Stream stream, StringPool pool = null, string name = "unknown")
+    public static FigletizeFont Parse(Stream stream, string name = "unknown", StringPool pool = null, Encoding encoding = null)
     {
-        if (stream == null)
-            throw new ArgumentNullException(nameof(stream));
+        // Validate before continuing
+        var (reader, match) = ValidateFontStream(stream, encoding);
 
-        // TODO allow specifying encoding
-        var reader = new StreamReader(stream);
-
-        var firstLine = reader.ReadLine();
-
-        if (firstLine == null)
-            throw new FigletizeException("Font file is empty.");
-
-        var match = _firstLinePattern.Match(firstLine);
-
-        if (!match.Success)
-            throw new FigletizeException("Font file has invalid first line.");
-
+        // Get some of the values
         var hardBlank = match.Groups["hardblank"].Value[0];
         var height = int.Parse(match.Groups["height"].Value);
         var baseline = int.Parse(match.Groups["baseline"].Value);
         var layoutOld = int.Parse(match.Groups["layoutold"].Value);
         var commentLineCount = int.Parse(match.Groups["commentlinecount"].Value);
-
         var layoutNewMatch = match.Groups["layoutnew"];
         var layoutNew = layoutNewMatch.Success
             ? int.Parse(layoutNewMatch.Value)
@@ -82,15 +69,17 @@ public static class FigletizeFontParser
             return (layoutOld & 0x1F) | SM_SMUSH;
         }
 
+        // Determine the direction
         var dirMatch = match.Groups["direction"];
         var direction = dirMatch.Success
             ? (FigletizeTextDirection)int.Parse(dirMatch.Value)
             : FigletizeTextDirection.LeftToRight;
 
-        // skip comment lines
+        // Ignore all comment lines
         for (var i = 0; i < commentLineCount; i++)
             reader.ReadLine();
 
+        // Create a string pool if not specified
         pool ??= new StringPool();
 
         /*
@@ -152,23 +141,9 @@ public static class FigletizeFontParser
         {
             var lines = new Line[height];
 
-            for (var i = 0; i < height; i++)
-            {
-                var line = reader.ReadLine();
-                if (line == null)
-                    throw new FigletizeException("Unexpected EOF in Font file.");
-                // TODO validate single endmark on all lines but last, and double endmark on last
-                // TODO validate all lines are the advertised width (without endmarks)
-                // TODO pool computed space counts too
-                var endmark = line[line.Length - 1];
-                line = line.TrimEnd(endmark);
-                lines[i] = new Line(pool.Pool(line), CountSolSpaces(line), CountEolSpaces(line));
-            }
-
-            return new FigletizeCharacter(lines);
-
             static byte CountSolSpaces(string s)
             {
+                // Start of line spaces
                 byte count = 0;
                 for (; count < s.Length && s[count] == ' '; count++)
                 {}
@@ -177,11 +152,26 @@ public static class FigletizeFontParser
 
             static byte CountEolSpaces(string s)
             {
+                // End of line spaces
                 byte count = 0;
                 for (var i = s.Length - 1; i > 0 && s[i] == ' '; i--, count++)
                 {}
                 return count;
             }
+
+            for (var i = 0; i < height; i++)
+            {
+                // Get a line
+                var line = reader.ReadLine() ??
+                    throw new FigletizeException("Unexpected EOF in Font file.");
+
+                // Trim the end mark and make a new line instance holding info about the line
+                var endmark = line[line.Length - 1];
+                line = line.TrimEnd(endmark);
+                lines[i] = new Line(pool.Pool(line), CountSolSpaces(line), CountEolSpaces(line));
+            }
+
+            return new FigletizeCharacter(lines);
         }
 
         var requiredCharacters = new FigletizeCharacter[256];
@@ -202,24 +192,102 @@ public static class FigletizeFontParser
 
         while (true)
         {
-readLine:
+            // Get a line
             var line = reader.ReadLine();
 
+            // We reached the end of stream
             if (line == null)
                 break;
 
+            // Ignore empty lines
             if (string.IsNullOrWhiteSpace(line))
-                goto readLine;
+                continue;
 
+            // Try to parse the line
             if (!ParseUtil.TryParse(line, out var code))
                 throw new FigletizeException($"Unsupported code-tagged character code string \"{line}\".");
 
+            // Read the required and sparse characters
             if (code >= 0 && code < 256)
                 requiredCharacters[code] = ReadCharacter();
             else
                 sparseCharacters[code] = ReadCharacter();
         }
 
+        // Return a new instance of the font
         return new FigletizeFont(requiredCharacters, sparseCharacters, hardBlank, height, baseline, direction, layoutNew, name);
+    }
+
+    /// <summary>
+    /// Extracts the comments from the font stream
+    /// </summary>
+    /// <param name="stream">Stream that contains FLF information</param>
+    /// <param name="encoding">Encoding to use while parsing font file</param>
+    /// <returns>Read only list of comments</returns>
+    public static IReadOnlyList<string> ExtractComments(Stream stream, Encoding encoding = null)
+    {
+        // Validate before continuing
+        var (reader, match) = ValidateFontStream(stream, encoding);
+
+        // Get some of the values
+        var commentLineCount = int.Parse(match.Groups["commentlinecount"].Value);
+
+        // Get all comment lines
+        List<string> comments = new();
+        for (int i = 0; i < commentLineCount; i++)
+        {
+            string commentLine = reader.ReadLine();
+            comments.Add(commentLine);
+        }
+        return comments;
+    }
+
+    /// <summary>
+    /// Checks to see if the provided stream is a valid font stream
+    /// </summary>
+    /// <param name="stream">Stream that contains FLF information</param>
+    /// <param name="encoding">Encoding to use while parsing font file</param>
+    /// <exception cref="ArgumentNullException"></exception>
+    /// <exception cref="FigletizeException"></exception>
+    public static (StreamReader reader, Match match) ValidateFontStream(Stream stream, Encoding encoding = null)
+    {
+        // Check the stream before opening it
+        if (stream == null)
+            throw new ArgumentNullException(nameof(stream));
+
+        // Open the stream reader with appropriate encoding
+        StreamReader reader;
+        if (encoding == null)
+            reader = new StreamReader(stream);
+        else
+            reader = new StreamReader(stream, encoding);
+        stream.Seek(0, SeekOrigin.Begin);
+
+        // Read the first line and parse it
+        var firstLine = reader.ReadLine() ??
+            throw new FigletizeException("Font file is empty.");
+        var match = _firstLinePattern.Match(firstLine);
+        if (!match.Success)
+            throw new FigletizeException("Font file has invalid first line.");
+        return (reader, match);
+    }
+
+    /// <summary>
+    /// Tries to validate the font stream
+    /// </summary>
+    /// <param name="stream">Stream that contains FLF information</param>
+    /// <param name="encoding">Encoding to use while parsing font file</param>
+    /// <returns>True with an instance of the reader and the match if found; otherwise, false with two null values.</returns>
+    public static (bool result, StreamReader reader, Match match) TryValidateFontStream(Stream stream, Encoding encoding = null)
+    {
+        try
+        {
+            var (reader, match) = ValidateFontStream(stream, encoding);
+            return (true, reader, match);
+        }
+        catch
+        {
+            return (false, null, null);
+        }
     }
 }
