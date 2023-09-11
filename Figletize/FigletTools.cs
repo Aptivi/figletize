@@ -99,7 +99,7 @@ namespace Figletize
             if (figletFonts.ContainsKey(FontName))
                 return figletFonts[FontName];
             else
-                return figletFonts["Small"];
+                return figletFonts["small"];
         }
 
         /// <summary>
