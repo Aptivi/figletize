@@ -7,8 +7,9 @@
     <Copyright>
       Copyright Drew Noakes 2017-2023, Copyright (c) Aptivi 2023
     </Copyright>
-    <PackageIcon>logo-square-256px.png</PackageIcon>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+    <PackageIcon>OfficialAppIcon-Figletize-512.png</PackageIcon>
     <PackageProjectUrl>https://github.com/Aptivi/Figletize</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Aptivi/Figletize.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
@@ -24,7 +25,7 @@
 
   <ItemGroup>
     <SourceRoot Include="$(MSBuildThisFileDirectory)/"/>
-    <None Include="$(MSBuildThisFileDirectory)/images/logo-square-256px.png" Pack="true" PackagePath="\" Visible="false" />
+    <None Include="$(MSBuildThisFileDirectory)/Figletize/OfficialAppIcon-Figletize-512.png" Pack="true" PackagePath="\" Visible="false" />
     <None Include="$(MSBuildThisFileDirectory)/README.md" Pack="true" PackagePath="\" Visible="false" />
   </ItemGroup>
 
