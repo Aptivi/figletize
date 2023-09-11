@@ -152,15 +152,28 @@ references:
   commentId: T:Figletize.FigletizeFontParser
   fullName: Figletize.FigletizeFontParser
   nameWithType: FigletizeFontParser
-- uid: Figletize.FigletizeFontParser.Parse(System.IO.Stream,Figletize.Utilities.StringPool,System.String)
-  name: Parse(Stream, StringPool, string)
-  href: api/Figletize.FigletizeFontParser.html#Figletize_FigletizeFontParser_Parse_System_IO_Stream_Figletize_Utilities_StringPool_System_String_
-  commentId: M:Figletize.FigletizeFontParser.Parse(System.IO.Stream,Figletize.Utilities.StringPool,System.String)
-  name.vb: Parse(Stream, StringPool, String)
-  fullName: Figletize.FigletizeFontParser.Parse(System.IO.Stream, Figletize.Utilities.StringPool, string)
-  fullName.vb: Figletize.FigletizeFontParser.Parse(System.IO.Stream, Figletize.Utilities.StringPool, String)
-  nameWithType: FigletizeFontParser.Parse(Stream, StringPool, string)
-  nameWithType.vb: FigletizeFontParser.Parse(Stream, StringPool, String)
+- uid: Figletize.FigletizeFontParser.ExtractComments(System.IO.Stream,System.Text.Encoding)
+  name: ExtractComments(Stream, Encoding)
+  href: api/Figletize.FigletizeFontParser.html#Figletize_FigletizeFontParser_ExtractComments_System_IO_Stream_System_Text_Encoding_
+  commentId: M:Figletize.FigletizeFontParser.ExtractComments(System.IO.Stream,System.Text.Encoding)
+  fullName: Figletize.FigletizeFontParser.ExtractComments(System.IO.Stream, System.Text.Encoding)
+  nameWithType: FigletizeFontParser.ExtractComments(Stream, Encoding)
+- uid: Figletize.FigletizeFontParser.ExtractComments*
+  name: ExtractComments
+  href: api/Figletize.FigletizeFontParser.html#Figletize_FigletizeFontParser_ExtractComments_
+  commentId: Overload:Figletize.FigletizeFontParser.ExtractComments
+  isSpec: "True"
+  fullName: Figletize.FigletizeFontParser.ExtractComments
+  nameWithType: FigletizeFontParser.ExtractComments
+- uid: Figletize.FigletizeFontParser.Parse(System.IO.Stream,System.String,Figletize.Utilities.StringPool,System.Text.Encoding)
+  name: Parse(Stream, string, StringPool, Encoding)
+  href: api/Figletize.FigletizeFontParser.html#Figletize_FigletizeFontParser_Parse_System_IO_Stream_System_String_Figletize_Utilities_StringPool_System_Text_Encoding_
+  commentId: M:Figletize.FigletizeFontParser.Parse(System.IO.Stream,System.String,Figletize.Utilities.StringPool,System.Text.Encoding)
+  name.vb: Parse(Stream, String, StringPool, Encoding)
+  fullName: Figletize.FigletizeFontParser.Parse(System.IO.Stream, string, Figletize.Utilities.StringPool, System.Text.Encoding)
+  fullName.vb: Figletize.FigletizeFontParser.Parse(System.IO.Stream, String, Figletize.Utilities.StringPool, System.Text.Encoding)
+  nameWithType: FigletizeFontParser.Parse(Stream, string, StringPool, Encoding)
+  nameWithType.vb: FigletizeFontParser.Parse(Stream, String, StringPool, Encoding)
 - uid: Figletize.FigletizeFontParser.Parse*
   name: Parse
   href: api/Figletize.FigletizeFontParser.html#Figletize_FigletizeFontParser_Parse_
@@ -168,6 +181,32 @@ references:
   isSpec: "True"
   fullName: Figletize.FigletizeFontParser.Parse
   nameWithType: FigletizeFontParser.Parse
+- uid: Figletize.FigletizeFontParser.TryValidateFontStream(System.IO.Stream,System.Text.Encoding)
+  name: TryValidateFontStream(Stream, Encoding)
+  href: api/Figletize.FigletizeFontParser.html#Figletize_FigletizeFontParser_TryValidateFontStream_System_IO_Stream_System_Text_Encoding_
+  commentId: M:Figletize.FigletizeFontParser.TryValidateFontStream(System.IO.Stream,System.Text.Encoding)
+  fullName: Figletize.FigletizeFontParser.TryValidateFontStream(System.IO.Stream, System.Text.Encoding)
+  nameWithType: FigletizeFontParser.TryValidateFontStream(Stream, Encoding)
+- uid: Figletize.FigletizeFontParser.TryValidateFontStream*
+  name: TryValidateFontStream
+  href: api/Figletize.FigletizeFontParser.html#Figletize_FigletizeFontParser_TryValidateFontStream_
+  commentId: Overload:Figletize.FigletizeFontParser.TryValidateFontStream
+  isSpec: "True"
+  fullName: Figletize.FigletizeFontParser.TryValidateFontStream
+  nameWithType: FigletizeFontParser.TryValidateFontStream
+- uid: Figletize.FigletizeFontParser.ValidateFontStream(System.IO.Stream,System.Text.Encoding)
+  name: ValidateFontStream(Stream, Encoding)
+  href: api/Figletize.FigletizeFontParser.html#Figletize_FigletizeFontParser_ValidateFontStream_System_IO_Stream_System_Text_Encoding_
+  commentId: M:Figletize.FigletizeFontParser.ValidateFontStream(System.IO.Stream,System.Text.Encoding)
+  fullName: Figletize.FigletizeFontParser.ValidateFontStream(System.IO.Stream, System.Text.Encoding)
+  nameWithType: FigletizeFontParser.ValidateFontStream(Stream, Encoding)
+- uid: Figletize.FigletizeFontParser.ValidateFontStream*
+  name: ValidateFontStream
+  href: api/Figletize.FigletizeFontParser.html#Figletize_FigletizeFontParser_ValidateFontStream_
+  commentId: Overload:Figletize.FigletizeFontParser.ValidateFontStream
+  isSpec: "True"
+  fullName: Figletize.FigletizeFontParser.ValidateFontStream
+  nameWithType: FigletizeFontParser.ValidateFontStream
 - uid: Figletize.FigletizeFonts
   name: FigletizeFonts
   href: api/Figletize.FigletizeFonts.html

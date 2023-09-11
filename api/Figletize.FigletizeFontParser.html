@@ -101,19 +101,75 @@
 </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/Aptivi/figletize/new/main/apiSpec/new?filename=Figletize_FigletizeFontParser_Parse_System_IO_Stream_Figletize_Utilities_StringPool_System_String_.md&amp;value=---%0Auid%3A%20Figletize.FigletizeFontParser.Parse(System.IO.Stream%2CFigletize.Utilities.StringPool%2CSystem.String)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/Aptivi/figletize/new/main/apiSpec/new?filename=Figletize_FigletizeFontParser_ExtractComments_System_IO_Stream_System_Text_Encoding_.md&amp;value=---%0Auid%3A%20Figletize.FigletizeFontParser.ExtractComments(System.IO.Stream%2CSystem.Text.Encoding)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aptivi/figletize/blob/main/Figletize/FigletizeFontParser.cs/#L227">View Source</a>
+  </span>
+  <a id="Figletize_FigletizeFontParser_ExtractComments_" data-uid="Figletize.FigletizeFontParser.ExtractComments*"></a>
+  <h4 id="Figletize_FigletizeFontParser_ExtractComments_System_IO_Stream_System_Text_Encoding_" data-uid="Figletize.FigletizeFontParser.ExtractComments(System.IO.Stream,System.Text.Encoding)">ExtractComments(Stream, Encoding)</h4>
+  <div class="markdown level1 summary"><p>Extracts the comments from the font stream</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IReadOnlyList&lt;string&gt; ExtractComments(Stream stream, Encoding encoding = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.stream">Stream</a></td>
+        <td><span class="parametername">stream</span></td>
+        <td><p>Stream that contains FLF information</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.encoding">Encoding</a></td>
+        <td><span class="parametername">encoding</span></td>
+        <td><p>Encoding to use while parsing font file</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1">IReadOnlyList</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</td>
+        <td><p>Read only list of comments</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Aptivi/figletize/new/main/apiSpec/new?filename=Figletize_FigletizeFontParser_Parse_System_IO_Stream_System_String_Figletize_Utilities_StringPool_System_Text_Encoding_.md&amp;value=---%0Auid%3A%20Figletize.FigletizeFontParser.Parse(System.IO.Stream%2CSystem.String%2CFigletize.Utilities.StringPool%2CSystem.Text.Encoding)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
     <a href="https://github.com/Aptivi/figletize/blob/main/Figletize/FigletizeFontParser.cs/#L47">View Source</a>
   </span>
   <a id="Figletize_FigletizeFontParser_Parse_" data-uid="Figletize.FigletizeFontParser.Parse*"></a>
-  <h4 id="Figletize_FigletizeFontParser_Parse_System_IO_Stream_Figletize_Utilities_StringPool_System_String_" data-uid="Figletize.FigletizeFontParser.Parse(System.IO.Stream,Figletize.Utilities.StringPool,System.String)">Parse(Stream, StringPool, string)</h4>
+  <h4 id="Figletize_FigletizeFontParser_Parse_System_IO_Stream_System_String_Figletize_Utilities_StringPool_System_Text_Encoding_" data-uid="Figletize.FigletizeFontParser.Parse(System.IO.Stream,System.String,Figletize.Utilities.StringPool,System.Text.Encoding)">Parse(Stream, string, StringPool, Encoding)</h4>
   <div class="markdown level1 summary"><p>Parses a FIGlet font description stream, and returns a usable <a class="xref" href="Figletize.Utilities.FigletizeFont.html">FigletizeFont</a>.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static FigletizeFont Parse(Stream stream, StringPool pool = null, string name = &quot;unknown&quot;)</code></pre>
+    <pre><code class="lang-csharp hljs">public static FigletizeFont Parse(Stream stream, string name = &quot;unknown&quot;, StringPool pool = null, Encoding encoding = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-condensed">
@@ -132,15 +188,21 @@
 </td>
       </tr>
       <tr>
-        <td><a class="xref" href="Figletize.Utilities.StringPool.html">StringPool</a></td>
-        <td><span class="parametername">pool</span></td>
-        <td><p>An optional string pool for merging identical string references.</p>
-</td>
-      </tr>
-      <tr>
         <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
         <td><span class="parametername">name</span></td>
         <td><p>Figlet font name.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Figletize.Utilities.StringPool.html">StringPool</a></td>
+        <td><span class="parametername">pool</span></td>
+        <td><p>An optional string pool for merging identical string references. If null, creates a new pool</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.encoding">Encoding</a></td>
+        <td><span class="parametername">encoding</span></td>
+        <td><p>Encoding to use while parsing font file</p>
 </td>
       </tr>
     </tbody>
@@ -182,6 +244,136 @@
       </tr>
     </tbody>
   </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Aptivi/figletize/new/main/apiSpec/new?filename=Figletize_FigletizeFontParser_TryValidateFontStream_System_IO_Stream_System_Text_Encoding_.md&amp;value=---%0Auid%3A%20Figletize.FigletizeFontParser.TryValidateFontStream(System.IO.Stream%2CSystem.Text.Encoding)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aptivi/figletize/blob/main/Figletize/FigletizeFontParser.cs/#L281">View Source</a>
+  </span>
+  <a id="Figletize_FigletizeFontParser_TryValidateFontStream_" data-uid="Figletize.FigletizeFontParser.TryValidateFontStream*"></a>
+  <h4 id="Figletize_FigletizeFontParser_TryValidateFontStream_System_IO_Stream_System_Text_Encoding_" data-uid="Figletize.FigletizeFontParser.TryValidateFontStream(System.IO.Stream,System.Text.Encoding)">TryValidateFontStream(Stream, Encoding)</h4>
+  <div class="markdown level1 summary"><p>Tries to validate the font stream</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static (bool result, StreamReader reader, Match match) TryValidateFontStream(Stream stream, Encoding encoding = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.stream">Stream</a></td>
+        <td><span class="parametername">stream</span></td>
+        <td><p>Stream that contains FLF information</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.encoding">Encoding</a></td>
+        <td><span class="parametername">encoding</span></td>
+        <td><p>Encoding to use while parsing font file</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>(<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple-system.boolean,system.io.streamreader,system.text.regularexpressions.match-.result">result</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.streamreader">StreamReader</a> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple-system.boolean,system.io.streamreader,system.text.regularexpressions.match-.reader">reader</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.regularexpressions.match">Match</a> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple-system.boolean,system.io.streamreader,system.text.regularexpressions.match-.match">match</a>)</td>
+        <td><p>True with an instance of the reader and the match if found; otherwise, false with two null values.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Aptivi/figletize/new/main/apiSpec/new?filename=Figletize_FigletizeFontParser_ValidateFontStream_System_IO_Stream_System_Text_Encoding_.md&amp;value=---%0Auid%3A%20Figletize.FigletizeFontParser.ValidateFontStream(System.IO.Stream%2CSystem.Text.Encoding)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aptivi/figletize/blob/main/Figletize/FigletizeFontParser.cs/#L252">View Source</a>
+  </span>
+  <a id="Figletize_FigletizeFontParser_ValidateFontStream_" data-uid="Figletize.FigletizeFontParser.ValidateFontStream*"></a>
+  <h4 id="Figletize_FigletizeFontParser_ValidateFontStream_System_IO_Stream_System_Text_Encoding_" data-uid="Figletize.FigletizeFontParser.ValidateFontStream(System.IO.Stream,System.Text.Encoding)">ValidateFontStream(Stream, Encoding)</h4>
+  <div class="markdown level1 summary"><p>Checks to see if the provided stream is a valid font stream</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static (StreamReader reader, Match match) ValidateFontStream(Stream stream, Encoding encoding = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.stream">Stream</a></td>
+        <td><span class="parametername">stream</span></td>
+        <td><p>Stream that contains FLF information</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.encoding">Encoding</a></td>
+        <td><span class="parametername">encoding</span></td>
+        <td><p>Encoding to use while parsing font file</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>(<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.streamreader">StreamReader</a> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple-system.io.streamreader,system.text.regularexpressions.match-.reader">reader</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.regularexpressions.match">Match</a> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple-system.io.streamreader,system.text.regularexpressions.match-.match">match</a>)</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Figletize.FigletizeException.html">FigletizeException</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
 
 </article>
           </div>
@@ -194,7 +386,7 @@
                     <a href="https://github.com/Aptivi/figletize/new/main/apiSpec/new?filename=Figletize_FigletizeFontParser.md&amp;value=---%0Auid%3A%20Figletize.FigletizeFontParser%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/Aptivi/figletize/blob/main/Figletize/FigletizeFontParser.cs/#L17" class="contribution-link">View Source</a>
+                    <a href="https://github.com/Aptivi/figletize/blob/main/Figletize/FigletizeFontParser.cs/#L16" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>
