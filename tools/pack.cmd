@@ -9,15 +9,15 @@ if "%releaseconfig%" == "" set releaseconfig=Release
 
 :packbin
 echo Packing binary...
-"%ProgramFiles%\WinRAR\rar.exe" a -ep1 -r -m5 %temp%/%version%-bin.rar "..\Figletize\bin\%releaseconfig%\netstandard2.0\"
-"%ProgramFiles%\WinRAR\rar.exe" a -ep1 -r -m5 %temp%/%version%-demo.rar "..\Figletize.Cmd\bin\%releaseconfig%\net6.0\"
+"%ProgramFiles%\7-Zip\7z.exe" a -tzip %temp%/%version%-bin.zip "..\Figletize\bin\%releaseconfig%\netstandard2.0\*"
+"%ProgramFiles%\7-Zip\7z.exe" a -tzip %temp%/%version%-demo.zip "..\Figletize.Cmd\bin\%releaseconfig%\net6.0\*"
 if %errorlevel% == 0 goto :complete
 echo There was an error trying to pack binary (%errorlevel%).
 goto :finished
 
 :complete
-move %temp%\%version%-bin.rar
-move %temp%\%version%-demo.rar
+move %temp%\%version%-bin.zip
+move %temp%\%version%-demo.zip
 
 echo Pack successful.
 :finished
