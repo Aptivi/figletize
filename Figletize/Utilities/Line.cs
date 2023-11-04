@@ -48,6 +48,7 @@ public sealed class FigletizeFont
 {
     private readonly IReadOnlyList<FigletizeCharacter> _requiredCharacters;
     private readonly IReadOnlyDictionary<int, FigletizeCharacter> _sparseCharacters;
+    private readonly string[] _comments;
     private readonly char _hardBlank;
     private readonly int _smushMode;
 
@@ -61,14 +62,22 @@ public sealed class FigletizeFont
     private const int SM_EQUAL = 0b00000001;
     private const int SM_FULLWIDTH = 0;
 
-    /// <summary>The height of each character, in rows.</summary>
+    /// <summary>
+    /// The height of each character, in rows.
+    /// </summary>
     public int Height { get; }
 
-    /// <summary>The number of rows from the top of the font to the baseline, excluding descenders.</summary>
-    /// <remarks>Must be less than or equal to <see cref="Height"/>.</remarks>
+    /// <summary>
+    /// The number of rows from the top of the font to the baseline, excluding descenders.
+    /// </summary>
+    /// <remarks>
+    /// Must be less than or equal to <see cref="Height"/>.
+    /// </remarks>
     public int Baseline { get; }
 
-    /// <summary>The direction that text reads when rendered with this font.</summary>
+    /// <summary>
+    /// The direction that text reads when rendered with this font.
+    /// </summary>
     public FigletizeTextDirection Direction { get; }
 
     /// <summary>
@@ -76,7 +85,13 @@ public sealed class FigletizeFont
     /// </summary>
     public string Name { get; }
 
-    internal FigletizeFont(IReadOnlyList<FigletizeCharacter> requiredCharacters, IReadOnlyDictionary<int, FigletizeCharacter> sparseCharacters, char hardBlank, int height, int baseline, FigletizeTextDirection direction, int smushMode, string name)
+    /// <summary>
+    /// The list of comments listed in the font file
+    /// </summary>
+    public string[] Comments =>
+        _comments;
+
+    internal FigletizeFont(IReadOnlyList<FigletizeCharacter> requiredCharacters, IReadOnlyDictionary<int, FigletizeCharacter> sparseCharacters, char hardBlank, int height, int baseline, FigletizeTextDirection direction, int smushMode, string name, string[] comments)
     {
         _requiredCharacters = requiredCharacters;
         _sparseCharacters = sparseCharacters;
@@ -86,6 +101,8 @@ public sealed class FigletizeFont
         Baseline = baseline;
         Direction = direction;
         Name = name;
+        _comments = comments;
+
     }
 
     private FigletizeCharacter GetCharacter(char c)

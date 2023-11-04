@@ -75,9 +75,10 @@ public static class FigletizeFontParser
             ? (FigletizeTextDirection)int.Parse(dirMatch.Value)
             : FigletizeTextDirection.LeftToRight;
 
-        // Ignore all comment lines
+        // Get all the comment lines
+        var comments = new List<string>();
         for (var i = 0; i < commentLineCount; i++)
-            reader.ReadLine();
+            comments.Add(reader.ReadLine());
 
         // Create a string pool if not specified
         pool ??= new StringPool();
@@ -215,7 +216,7 @@ public static class FigletizeFontParser
         }
 
         // Return a new instance of the font
-        return new FigletizeFont(requiredCharacters, sparseCharacters, hardBlank, height, baseline, direction, layoutNew, name);
+        return new FigletizeFont(requiredCharacters, sparseCharacters, hardBlank, height, baseline, direction, layoutNew, name, comments.ToArray());
     }
 
     /// <summary>
