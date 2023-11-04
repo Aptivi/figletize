@@ -240,7 +240,7 @@ public sealed class FigletizeFont
 
                 var move = ll.SpaceAfter + rl.SpaceBefore;
 
-                if (TrySmush(ll.BackChar, rl.FrontChar) != '\0')
+                if (ll.Content.Length > 2 && rl.Content.Length > 2 && TrySmush(ll.BackChar, rl.FrontChar) != '\0')
                     move++;
 
                 move = Math.Min(move, rl.Content.Length);
@@ -254,7 +254,6 @@ public sealed class FigletizeFont
             return minMove;
         }
 
-        // TODO disallow smushing if either char's line has a length < 2
         char TrySmush(char l, char r)
         {
             if (l == ' ') return r;
