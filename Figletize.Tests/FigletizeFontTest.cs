@@ -30,8 +30,7 @@ public class FigletizeFontTest
 
         Test(FigletizeFonts.TryGetByName("threepoint"), "Hello, World!", null,
             @"|_| _ || _    \    / _  _| _||",
-            @"| |(/_||(_),   \/\/ (_)| |(_|.",
-            @"                              ");
+            @"| |(/_||(_),   \/\/ (_)| |(_|.");
 
         Test(FigletizeFonts.TryGetByName("ogre"), "Hello, World!", null,
             @"            _ _          __    __           _     _   _ ",
@@ -62,8 +61,7 @@ public class FigletizeFontTest
             @"   / / / / |     / /",
             @"  / /_/ /| | /| / / ",
             @" / __  /_| |/ |/ /  ",
-            @"/_/ /_/(_)__/|__/   ",
-            @"                    ");
+            @"/_/ /_/(_)__/|__/   ");
 
         Test(FigletizeFonts.TryGetByName("impossible"), "Figletize", null,
             @"         _        _          _              _             _          _          _           _                 _      ",
@@ -76,8 +74,7 @@ public class FigletizeFontTest
             @"  / /\____\/ / / /    / / /  \/____ // / / ____    / /\____\/   / / /      / / /          / / /    _   / /\____\/    ",
             @" / / /   ___/ / /__  / / /_____/ / // /_/_/ ___/\ / / /______  / / /   ___/ / /__         \ \ \__/\_\ / / /______    ",
             @"/ / /   /\__\/_/___\/ / /______\/ //_______/\__\// / /_______\/_/ /   /\__\/_/___\         \ \___\/ // / /_______\   ",
-            @"\/_/    \/_________/\/___________/ \_______\/    \/__________/\_\/    \/_________/          \/___/_/ \/__________/   ",
-            @"                                                                                                                     ");
+            @"\/_/    \/_________/\/___________/ \_______\/    \/__________/\_\/    \/_________/          \/___/_/ \/__________/   ");
 
         Test(FigletizeFonts.TryGetByName("graffiti"), "Hello, World!", null,
             @"  ___ ___         .__  .__               __      __            .__       .___._.",
@@ -91,7 +88,6 @@ public class FigletizeFontTest
         {
             var output = font.Render(s, smushOverride);
             var actual = output.Split(new[] {Environment.NewLine}, StringSplitOptions.None);
-            actual = actual.Take(Math.Max(0, actual.Length - 1)).ToArray();
             Assert.Equal(expected.Length, actual.Length);
             for (var i = 0; i < expected.Length; i++)
             {

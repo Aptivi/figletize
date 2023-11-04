@@ -13,7 +13,6 @@ namespace Figletize
     public static class FigletTools
     {
         private readonly static Dictionary<string, string> cachedFiglets = new();
-        private readonly static Dictionary<string, FigletizeFont> cachedFigletFonts = new();
 
         /// <summary>
         /// Gets the figlet lines
@@ -49,10 +48,10 @@ namespace Figletize
         public static Dictionary<string, FigletizeFont> GetFigletFonts()
         {
             Dictionary<string, FigletizeFont> fonts = new();
-            if (cachedFigletFonts.Count > 0)
+            if (FigletizeFonts._fontByName.Count > 0)
             {
                 // Fetch the cached version
-                fonts = new(cachedFigletFonts);
+                fonts = new(FigletizeFonts._fontByName);
                 return fonts;
             }
 
@@ -61,10 +60,7 @@ namespace Figletize
             {
                 var font = FigletizeFonts.TryGetByName(fontName);
                 if (font is not null)
-                {
                     fonts.Add(fontName, font);
-                    cachedFigletFonts.Add(fontName, font);
-                }
             }
             return fonts;
         }

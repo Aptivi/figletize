@@ -221,7 +221,7 @@ public sealed class FigletizeFont
         // Now, add the lines
         foreach (string outputLine in outputLines)
             res.AppendLine(outputLine);
-        return res.ToString();
+        return res.ToString(0, res.Length - Environment.NewLine.Length);
 
         int CalculateFitMove(FigletizeCharacter l, FigletizeCharacter r)
         {

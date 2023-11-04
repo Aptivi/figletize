@@ -17,8 +17,8 @@ namespace Figletize;
 /// </remarks>
 public static class FigletizeFonts
 {
-    private static readonly ConcurrentDictionary<string, FigletizeFont> _fontByName = new(StringComparer.Ordinal);
     private static readonly StringPool _stringPool = new();
+    internal static readonly ConcurrentDictionary<string, FigletizeFont> _fontByName = new(StringComparer.Ordinal);
     internal static readonly string[] _builtinFonts = new[]
     {
         "1row",
