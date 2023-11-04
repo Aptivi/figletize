@@ -23,26 +23,7 @@ namespace Figletize
         public static string[] GetFigletLines(string Text, FigletizeFont FigletFont)
         {
             Text = FigletFont.Render(Text);
-            var TextLines = Text.SplitNewLines();
-            List<string> lines = new(TextLines);
-
-            // Try to trim from the top
-            for (int line = 0; line < lines.Count; line++)
-            {
-                if (!string.IsNullOrWhiteSpace(lines[line]))
-                    break;
-                lines.RemoveAt(line);
-            }
-
-            // Try to trim from the bottom
-            for (int line = lines.Count - 1; line > 0; line--)
-            {
-                if (!string.IsNullOrWhiteSpace(lines[line]))
-                    break;
-                lines.RemoveAt(line);
-            }
-
-            return lines.ToArray();
+            return Text.SplitNewLines();
         }
 
         /// <summary>

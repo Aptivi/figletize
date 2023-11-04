@@ -122,9 +122,7 @@ public sealed class FigletizeFont
     public string Render(string message, int? smushOverride = null)
     {
         var smush = smushOverride ?? _smushMode;
-
-        var outputLines = Enumerable.Range(0, Height).Select(_ => new StringBuilder()).ToList();
-
+        var outputLineBuilders = Enumerable.Range(0, Height).Select(_ => new StringBuilder()).ToList();
         FigletizeCharacter lastCh = null;
 
         foreach (var c in message)
@@ -139,7 +137,7 @@ public sealed class FigletizeFont
             for (var row = 0; row < Height; row++)
             {
                 var charLine = ch.Lines[row];
-                var outputLine = outputLines[row];
+                var outputLine = outputLineBuilders[row];
 
                 if (fitMove != 0)
                 {
@@ -185,10 +183,27 @@ public sealed class FigletizeFont
         }
 
         var res = new StringBuilder();
+        var outputLines = outputLineBuilders.Select((sb) => sb.Replace(_hardBlank, ' ').ToString()).ToList();
 
-        foreach (var outputLine in outputLines)
-            res.AppendLine(outputLine.Replace(_hardBlank, ' ').ToString());
+        // Try to trim from the top
+        for (int line = 0; line < outputLines.Count; line++)
+        {
+            if (!string.IsNullOrWhiteSpace(outputLines[line]))
+                break;
+            outputLines.RemoveAt(line);
+        }
 
+        // Try to trim from the bottom
+        for (int line = outputLines.Count - 1; line > 0; line--)
+        {
+            if (!string.IsNullOrWhiteSpace(outputLines[line]))
+                break;
+            outputLines.RemoveAt(line);
+        }
+
+        // Now, add the lines
+        foreach (string outputLine in outputLines)
+            res.AppendLine(outputLine);
         return res.ToString();
 
         int CalculateFitMove(FigletizeCharacter l, FigletizeCharacter r)
