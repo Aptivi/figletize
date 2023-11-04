@@ -264,6 +264,19 @@ references:
   isSpec: "True"
   fullName: Figletize.Utilities.FigletizeFont.Baseline
   nameWithType: FigletizeFont.Baseline
+- uid: Figletize.Utilities.FigletizeFont.Comments
+  name: Comments
+  href: api/Figletize.Utilities.FigletizeFont.html#Figletize_Utilities_FigletizeFont_Comments
+  commentId: P:Figletize.Utilities.FigletizeFont.Comments
+  fullName: Figletize.Utilities.FigletizeFont.Comments
+  nameWithType: FigletizeFont.Comments
+- uid: Figletize.Utilities.FigletizeFont.Comments*
+  name: Comments
+  href: api/Figletize.Utilities.FigletizeFont.html#Figletize_Utilities_FigletizeFont_Comments_
+  commentId: Overload:Figletize.Utilities.FigletizeFont.Comments
+  isSpec: "True"
+  fullName: Figletize.Utilities.FigletizeFont.Comments
+  nameWithType: FigletizeFont.Comments
 - uid: Figletize.Utilities.FigletizeFont.Contains(System.Char)
   name: Contains(char)
   href: api/Figletize.Utilities.FigletizeFont.html#Figletize_Utilities_FigletizeFont_Contains_System_Char_
