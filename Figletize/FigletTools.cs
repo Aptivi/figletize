@@ -48,14 +48,8 @@ namespace Figletize
         public static Dictionary<string, FigletizeFont> GetFigletFonts()
         {
             Dictionary<string, FigletizeFont> fonts = new();
-            if (FigletizeFonts._fontByName.Count > 0)
-            {
-                // Fetch the cached version
-                fonts = new(FigletizeFonts._fontByName);
-                return fonts;
-            }
 
-            // Now, populate through all the built-in fonts
+            // Populate through all the built-in fonts
             foreach (string fontName in FigletizeFonts._builtinFonts)
             {
                 var font = FigletizeFonts.TryGetByName(fontName);
