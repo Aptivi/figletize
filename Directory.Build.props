@@ -1,7 +1,7 @@
 <Project>
 
   <PropertyGroup>
-    <Version>0.7.0</Version>
+    <Version>0.7.0.1</Version>
     <LangVersion>latest</LangVersion>
     <Authors>Drew Noakes,Aptivi</Authors>
     <Copyright>
