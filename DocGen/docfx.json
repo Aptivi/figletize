@@ -30,7 +30,7 @@
         ],
         "dest": "../docs",
         "globalMetadata": {
-            "_appTitle": "Figletize API - Aptivi Internals",
+            "_appTitle": "Figletize API - Aptivi",
             "_enableSearch": true
         },
         "globalMetadataFiles": [],
