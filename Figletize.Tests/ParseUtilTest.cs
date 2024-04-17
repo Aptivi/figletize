@@ -1,22 +1,24 @@
 ﻿// Copyright Drew Noakes. Licensed under the Apache-2.0 license. See the LICENSE file for more details.
 // Copyright 2023-2024 - Aptivi. Licensed under the Apache-2.0 license. See the LICENSE file for more details.
 
-using Xunit;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Shouldly;
 
 namespace Figletize.Tests;
 
 public class ParseUtilTest
 {
-    [Fact]
+    [TestMethod]
     public void Parse()
     {
         void Test(string s, int expected)
         {
-            Assert.True(ParseUtil.TryParse(s, out var actual));
-            Assert.Equal(expected, actual);
+            ParseUtil.TryParse(s, out var actual).ShouldBeTrue();
+            actual.ShouldBe(expected);
         }
 
-        void TestFails(string s) => Assert.False(ParseUtil.TryParse(s, out var _));
+        void TestFails(string s) =>
+            ParseUtil.TryParse(s, out var _).ShouldBeFalse();
 
         Test("1234", 1234);
         Test("1234 ", 1234);

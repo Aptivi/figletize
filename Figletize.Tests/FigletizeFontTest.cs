@@ -2,18 +2,16 @@
 // Copyright 2023-2024 - Aptivi. Licensed under the Apache-2.0 license. See the LICENSE file for more details.
 
 using Figletize.Utilities;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Shouldly;
 using System;
-using Xunit;
-using Xunit.Abstractions;
 
 namespace Figletize.Tests;
 
+[TestClass]
 public class FigletizeFontTest
 {
-    private readonly ITestOutputHelper _output;
-    public FigletizeFontTest(ITestOutputHelper output) => _output = output;
-
-    [Fact]
+    [TestMethod]
     public void RenderByFontInstance()
     {
         Test(FigletizeFonts.TryGetByName("standard"), "Hello, World!", null,
@@ -83,33 +81,25 @@ public class FigletizeFontTest
         void Test(FigletizeFont font, string s, int? smushOverride = null, params string[] expected)
         {
             var output = font.Render(s, smushOverride);
-            var actual = output.Split(new[] {Environment.NewLine}, StringSplitOptions.None);
-            Assert.Equal(expected.Length, actual.Length);
+            var actual = output.Split(Environment.NewLine);
+            actual.Length.ShouldBe(expected.Length);
             for (var i = 0; i < expected.Length; i++)
             {
                 if (expected[i] == actual[i])
                     continue;
                 if (expected[i].Length != actual[i].Length)
-                {
-                    _output.WriteLine("Expected:\n" + string.Join(Environment.NewLine, expected));
-                    _output.WriteLine("Actual:\n" + output);
                     Assert.Fail($"Mismatched lengths row {i}. Expecting '{expected[i].Length}' but got '{actual[i].Length}'.");
-                }
 
                 for (var x = 0; x < expected[i].Length; x++)
                 {
                     if (expected[i][x] != actual[i][x])
-                    {
-                        _output.WriteLine("Expected:\n" + string.Join(Environment.NewLine, expected));
-                        _output.WriteLine("Actual:\n" + output);
                         Assert.Fail($"Mismatch at row {i} col {x}. Expecting '{expected[i][x]}' but got '{actual[i][x]}'.");
-                    }
                 }
             }
         }
     }
 
-    [Fact]
+    [TestMethod]
     public void RenderByFigletTools()
     {
         TestFont(FigletizeFonts.TryGetByName("standard"), "Hello, World!",
@@ -246,27 +236,19 @@ public class FigletizeFontTest
         void Test(string fontName, string s, params string[] expected)
         {
             var output = FigletTools.RenderFiglet(s, fontName);
-            var actual = output.Split(new[] { "\n" }, StringSplitOptions.None);
-            Assert.Equal(expected.Length, actual.Length);
+            var actual = output.Split('\n');
+            actual.Length.ShouldBe(expected.Length);
             for (var i = 0; i < expected.Length; i++)
             {
                 if (expected[i] == actual[i])
                     continue;
                 if (expected[i].Length != actual[i].Length)
-                {
-                    _output.WriteLine("Expected:\n" + string.Join("\n", expected));
-                    _output.WriteLine("Actual:\n" + output);
                     Assert.Fail($"Mismatched lengths row {i}. Expecting '{expected[i].Length}' but got '{actual[i].Length}'.");
-                }
 
                 for (var x = 0; x < expected[i].Length; x++)
                 {
                     if (expected[i][x] != actual[i][x])
-                    {
-                        _output.WriteLine("Expected:\n" + string.Join("\n", expected));
-                        _output.WriteLine("Actual:\n" + output);
                         Assert.Fail($"Mismatch at row {i} col {x}. Expecting '{expected[i][x]}' but got '{actual[i][x]}'.");
-                    }
                 }
             }
         }

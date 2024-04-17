@@ -8,11 +8,12 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
-using Xunit;
-using Xunit.Sdk;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Shouldly;
 
 namespace Figletize.Generator.Tests;
 
+[TestClass]
 public class FigletizeSourceGeneratorTests
 {
     private readonly ImmutableArray<MetadataReference> _references;
@@ -44,7 +45,7 @@ public class FigletizeSourceGeneratorTests
         }
     }
 
-    [Fact]
+    [TestMethod]
     public void SimpleCase_Class()
     {
         string source =
@@ -77,7 +78,7 @@ public class FigletizeSourceGeneratorTests
         ValidateOutput(source, expected);
     }
 
-    [Fact]
+    [TestMethod]
     public void SimpleCase_StaticClass()
     {
         string source =
@@ -110,7 +111,7 @@ public class FigletizeSourceGeneratorTests
         ValidateOutput(source, expected);
     }
 
-    [Fact]
+    [TestMethod]
     public void SimpleCase_GlobalNamespace()
     {
         string source = """
@@ -137,7 +138,7 @@ public class FigletizeSourceGeneratorTests
         ValidateOutput(source, expected);
     }
 
-    [Fact]
+    [TestMethod]
     public void MultipleStrings()
     {
         string source =
@@ -182,7 +183,7 @@ public class FigletizeSourceGeneratorTests
         ValidateOutput(source, expected);
     }
 
-    [Fact]
+    [TestMethod]
     public void SimpleCase_TwoClasses_SameNamespace()
     {
         string source =
@@ -236,7 +237,7 @@ public class FigletizeSourceGeneratorTests
         ValidateOutput(source, expected1, expected2);
     }
 
-    [Fact]
+    [TestMethod]
     public void SimpleCase_TwoClasses_DifferentNamespace()
     {
         string source =
@@ -293,7 +294,7 @@ public class FigletizeSourceGeneratorTests
         ValidateOutput(source, expected1, expected2);
     }
 
-    [Fact]
+    [TestMethod]
     public void InvalidFontName()
     {
         string source =
@@ -309,13 +310,13 @@ public class FigletizeSourceGeneratorTests
 
         var (_, diagnostics) = RunGenerator(source);
 
-        var diagnostic = Assert.Single(diagnostics);
+        var diagnostic = diagnostics.ShouldHaveSingleItem();
 
-        Assert.Same(FigletizeSourceGenerator.UnknownFontNameDiagnostic, diagnostic.Descriptor);
-        Assert.Equal("A font with name 'unknown-font' was not found", diagnostic.GetMessage());
+        Assert.AreSame(FigletizeSourceGenerator.UnknownFontNameDiagnostic, diagnostic.Descriptor);
+        diagnostic.GetMessage().ShouldBe("A font with name 'unknown-font' was not found");
     }
 
-    [Fact]
+    [TestMethod]
     public void InvalidMemberName()
     {
         string source =
@@ -331,13 +332,13 @@ public class FigletizeSourceGeneratorTests
 
         var (_, diagnostics) = RunGenerator(source);
 
-        var diagnostic = Assert.Single(diagnostics);
+        var diagnostic = diagnostics.ShouldHaveSingleItem();
 
-        Assert.Same(FigletizeSourceGenerator.InvalidMemberNameDiagnostic, diagnostic.Descriptor);
-        Assert.Equal("The string 'With Space' is not a valid member name", diagnostic.GetMessage());
+        Assert.AreSame(FigletizeSourceGenerator.InvalidMemberNameDiagnostic, diagnostic.Descriptor);
+        diagnostic.GetMessage().ShouldBe("The string 'With Space' is not a valid member name");
     }
 
-    [Fact]
+    [TestMethod]
     public void DuplicateMemberName_SamePart()
     {
         string source =
@@ -354,10 +355,10 @@ public class FigletizeSourceGeneratorTests
 
         var (compilation, diagnostics) = RunGenerator(source);
 
-        var diagnostic = Assert.Single(diagnostics);
+        var diagnostic = diagnostics.ShouldHaveSingleItem();
 
-        Assert.Same(FigletizeSourceGenerator.DuplicateMemberNameDiagnostic, diagnostic.Descriptor);
-        Assert.Equal("Member 'Foo' has already been declared", diagnostic.GetMessage());
+        Assert.AreSame(FigletizeSourceGenerator.DuplicateMemberNameDiagnostic, diagnostic.Descriptor);
+        diagnostic.GetMessage().ShouldBe("Member 'Foo' has already been declared");
 
         string expected =
             $$"""
@@ -376,10 +377,10 @@ public class FigletizeSourceGeneratorTests
             }
             """;
 
-        Assert.Equal(expected, compilation.SyntaxTrees.Last().ToString(), NewlineIgnoreComparer.Instance);
+        compilation.SyntaxTrees.Last().ToString().ShouldBe(expected, NewlineIgnoreComparer.Instance);
     }
 
-    [Fact]
+    [TestMethod]
     public void MemberAlreadyExists_SamePart()
     {
         string source =
@@ -396,13 +397,13 @@ public class FigletizeSourceGeneratorTests
 
         var (_, diagnostics) = RunGenerator(source);
 
-        var diagnostic = Assert.Single(diagnostics);
+        var diagnostic = diagnostics.ShouldHaveSingleItem();
 
-        Assert.Same(FigletizeSourceGenerator.DuplicateMemberNameDiagnostic, diagnostic.Descriptor);
-        Assert.Equal("Member 'Foo' has already been declared", diagnostic.GetMessage());
+        Assert.AreSame(FigletizeSourceGenerator.DuplicateMemberNameDiagnostic, diagnostic.Descriptor);
+        diagnostic.GetMessage().ShouldBe("Member 'Foo' has already been declared");
     }
 
-    [Fact]
+    [TestMethod]
     public void MemberAlreadyExists_DifferentPart()
     {
         string source =
@@ -423,13 +424,13 @@ public class FigletizeSourceGeneratorTests
 
         var (_, diagnostics) = RunGenerator(source);
 
-        var diagnostic = Assert.Single(diagnostics);
+        var diagnostic = diagnostics.ShouldHaveSingleItem();
 
-        Assert.Same(FigletizeSourceGenerator.DuplicateMemberNameDiagnostic, diagnostic.Descriptor);
-        Assert.Equal("Member 'Foo' has already been declared", diagnostic.GetMessage());
+        Assert.AreSame(FigletizeSourceGenerator.DuplicateMemberNameDiagnostic, diagnostic.Descriptor);
+        diagnostic.GetMessage().ShouldBe("Member 'Foo' has already been declared");
     }
 
-    [Fact]
+    [TestMethod]
     public void DuplicateMemberName_DifferentParts()
     {
         string source =
@@ -450,10 +451,10 @@ public class FigletizeSourceGeneratorTests
 
         var (compilation, diagnostics) = RunGenerator(source);
 
-        var diagnostic = Assert.Single(diagnostics);
+        var diagnostic = diagnostics.ShouldHaveSingleItem();
 
-        Assert.Same(FigletizeSourceGenerator.DuplicateMemberNameDiagnostic, diagnostic.Descriptor);
-        Assert.Equal("Member 'Foo' has already been declared", diagnostic.GetMessage());
+        Assert.AreSame(FigletizeSourceGenerator.DuplicateMemberNameDiagnostic, diagnostic.Descriptor);
+        diagnostic.GetMessage().ShouldBe("Member 'Foo' has already been declared");
 
         string expected =
             $$"""
@@ -472,10 +473,10 @@ public class FigletizeSourceGeneratorTests
             }
             """;
 
-        Assert.Equal(expected, compilation.SyntaxTrees.Last().ToString(), NewlineIgnoreComparer.Instance);
+        compilation.SyntaxTrees.Last().ToString().ShouldBe(expected, NewlineIgnoreComparer.Instance);
     }
 
-    [Fact]
+    [TestMethod]
     public void TypeIsNotPartial()
     {
         string source =
@@ -491,13 +492,13 @@ public class FigletizeSourceGeneratorTests
 
         var (_, diagnostics) = RunGenerator(source);
 
-        var diagnostic = Assert.Single(diagnostics);
+        var diagnostic = diagnostics.ShouldHaveSingleItem();
 
-        Assert.Same(FigletizeSourceGenerator.TypeIsNotPartialDiagnostic, diagnostic.Descriptor);
-        Assert.Equal("Type 'DemoUsage' must be partial", diagnostic.GetMessage());
+        Assert.AreSame(FigletizeSourceGenerator.TypeIsNotPartialDiagnostic, diagnostic.Descriptor);
+        diagnostic.GetMessage().ShouldBe("Type 'DemoUsage' must be partial");
     }
 
-    [Fact]
+    [TestMethod]
     public void NestedTypeIsNotSupported()
     {
         string source =
@@ -516,10 +517,10 @@ public class FigletizeSourceGeneratorTests
 
         var (_, diagnostics) = RunGenerator(source);
 
-        var diagnostic = Assert.Single(diagnostics);
+        var diagnostic = diagnostics.ShouldHaveSingleItem();
 
-        Assert.Same(FigletizeSourceGenerator.NestedTypeIsNotSupportedDiagnostic, diagnostic.Descriptor);
-        Assert.Equal("Unable to generate Figletize text for nested type 'Inner'. Generation is only supported for non-nested types.", diagnostic.GetMessage());
+        Assert.AreSame(FigletizeSourceGenerator.NestedTypeIsNotSupportedDiagnostic, diagnostic.Descriptor);
+        diagnostic.GetMessage().ShouldBe("Unable to generate Figletize text for nested type 'Inner'. Generation is only supported for non-nested types.");
     }
 
     private void ValidateOutput(string source, params string[] outputs)
@@ -528,10 +529,7 @@ public class FigletizeSourceGeneratorTests
 
         ValidateNoErrors(diagnostics);
 
-        Assert.Equal(
-            new[] { source, FigletizeSourceGenerator.AttributeSource }.Concat(outputs),
-            compilation.SyntaxTrees.Select(tree => tree.ToString()),
-            NewlineIgnoreComparer.Instance);
+        compilation.SyntaxTrees.Select(tree => tree.ToString()).ShouldBe(new[] { source, FigletizeSourceGenerator.AttributeSource }.Concat(outputs), NewlineIgnoreComparer.Instance);
     }
 
     private (Compilation Compilation, ImmutableArray<Diagnostic> Diagnostics) RunGenerator(string source)
@@ -560,9 +558,9 @@ public class FigletizeSourceGeneratorTests
     {
         var errors = diagnostics.Where(d => d.Severity == DiagnosticSeverity.Error).ToList();
 
-        if (errors.Any())
+        if (errors.Count != 0)
         {
-            throw new XunitException(
+            throw new Exception(
                 string.Join(
                     Environment.NewLine,
                     errors.Select(error => error.GetMessage())));
