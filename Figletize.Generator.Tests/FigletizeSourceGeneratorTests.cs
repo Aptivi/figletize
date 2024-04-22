@@ -581,7 +581,6 @@ public class FigletizeSourceGeneratorTests
             return StringComparer.Ordinal.GetHashCode(Normalize(obj));
         }
 
-        [return: NotNullIfNotNull("s")]
-        private static string Normalize(string s) => s?.Replace("\r", "");
+        private static string Normalize(string s) => s?.Replace("\r", "") ?? "";
     }
 }

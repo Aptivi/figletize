@@ -81,7 +81,7 @@ public class FigletizeFontTest
         void Test(FigletizeFont font, string s, int? smushOverride = null, params string[] expected)
         {
             var output = font.Render(s, smushOverride);
-            var actual = output.Split(Environment.NewLine);
+            var actual = output.Split([Environment.NewLine], StringSplitOptions.None);
             actual.Length.ShouldBe(expected.Length);
             for (var i = 0; i < expected.Length; i++)
             {
