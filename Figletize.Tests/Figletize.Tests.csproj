@@ -2,9 +2,6 @@
 
   <PropertyGroup>
     <TargetFrameworks>net8.0;net48</TargetFrameworks>
-    <LangVersion>latest</LangVersion>
-    <SignAssembly>True</SignAssembly>
-    <AssemblyOriginatorKeyFile>..\aptivi_snk.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -15,8 +12,13 @@
   <ItemGroup>
     <ProjectReference Include="..\Figletize\Figletize.csproj" />
   </ItemGroup>
+
   <ItemGroup>
     <Compile Include="..\Figletize\Utilities\ParseUtil.cs" Link="Source\ParseUtil.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Remove="Microsoft.SourceLink.GitHub" />
   </ItemGroup>
   
 </Project>

@@ -1,32 +1,22 @@
 <Project>
+    <PropertyGroup>
+        <Version>0.7.0.3</Version>
+        <Authors>Aptivi</Authors>
+        <Company>Aptivi</Company>
+        <Copyright>Copyright (c) 2023-2024 Aptivi</Copyright>
+        <LangVersion>latest</LangVersion>
+        <DebugType>portable</DebugType>
+        <SignAssembly>True</SignAssembly>
+        <RootPath>$(MSBuildThisFileDirectory)</RootPath>
+        <AssemblyOriginatorKeyFile>$(RootPath)\aptivi_snk.snk</AssemblyOriginatorKeyFile>
+    </PropertyGroup>
 
-  <PropertyGroup>
-    <Version>0.7.0.3</Version>
-    <LangVersion>latest</LangVersion>
-    <Authors>Drew Noakes,Aptivi</Authors>
-    <Copyright>
-      Copyright Drew Noakes 2017-2023, Copyright (c) Aptivi 2023
-    </Copyright>
-    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-    <PackageIcon>OfficialAppIcon-Figletize-512.png</PackageIcon>
-    <PackageProjectUrl>https://github.com/Aptivi/Figletize</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/Aptivi/Figletize.git</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
-    <PackageTags>figlet;ascii;banner;headings</PackageTags>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
-    <Deterministic>true</Deterministic>
-    <DeterministicSourcePaths>true</DeterministicSourcePaths>
-    <DebugType>portable</DebugType>
-    <IncludeSymbols>true</IncludeSymbols>
-    <AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
-    <IsPackable>false</IsPackable>
-  </PropertyGroup>
+    <PropertyGroup>
+        <PublishRepositoryUrl>true</PublishRepositoryUrl>
+        <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <SourceRoot Include="$(MSBuildThisFileDirectory)/"/>
-    <None Include="$(MSBuildThisFileDirectory)/Figletize/OfficialAppIcon-Figletize-512.png" Pack="true" PackagePath="\" Visible="false" />
-    <None Include="$(MSBuildThisFileDirectory)/README.md" Pack="true" PackagePath="\" Visible="false" />
-  </ItemGroup>
-
+    <ItemGroup>
+        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
+    </ItemGroup>
 </Project>
